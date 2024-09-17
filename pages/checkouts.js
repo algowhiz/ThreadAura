@@ -1,0 +1,132 @@
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
+import DiliveryForm from './components/DeliveryForm';
+import OrderSummary from './components/OrderSummary';
+import PaymentSection from './components/PaymentSection';
+
+const Checkouts = ({ cart, subTotal, clearCart }) => {
+  const router = useRouter();
+  const [order, setOrder] = useState([]);
+  const [formValues, setFormValues] = useState({
+    name: '',
+    email: '',
+    address: '',
+    phone: '',
+    city: '',
+    state: '',
+    pincode: '',
+  });
+  const [formValid, setFormValid] = useState(false);
+  const [paymentDetails, setPaymentDetails] = useState(null);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
+  const validateForm = () => {
+    const allFieldsFilled = Object.values(formValues).every((value) => value.trim() !== '');
+    setFormValid(allFieldsFilled);
+  };
+
+  const handleInputBlur = () => {
+    validateForm();
+  };
+
+  useEffect(() => {
+    const { buyNow } = router.query;
+
+    if (buyNow) {
+      const orderDetails = JSON.parse(localStorage.getItem('buyNowOrder'));
+      setOrder(orderDetails ? [orderDetails] : []); // Single item
+    } else {
+      const orderArray = Object.entries(cart).map(([key, item]) => ({
+        ...item,
+        id: key,
+      }));
+      setOrder(orderArray); // Cart items
+    }
+  }, [router.query, cart]);
+
+  // Callback for handling Google Pay payment success
+  // Callback for handling Google Pay payment success
+  const handleGooglePaySuccess = async (paymentRequest) => {
+    const paymentData = paymentRequest.paymentMethodData;
+    const paymentDetails = {
+      cardNetwork: paymentData.info.cardNetwork,
+      cardDetails: paymentData.info.cardDetails,
+      token: paymentData.tokenizationData.token,
+    };
+
+    console.log(paymentData);
+    
+
+    // Store payment details
+    setPaymentDetails(paymentDetails);
+
+    // Now create the order after successful payment
+    const orderId = `ORDER_${Date.now()}`;
+    const userId = localStorage.getItem('thread_aura__id');
+
+    const orderData = {
+      userId,
+      orderId,
+      products: router.query.buyNow
+        ? order.map((item) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+        }))
+        : order.map((item) => ({
+          productId: item._id,
+          quantity: item.qty,
+        })),
+      address: `${formValues.address}, ${formValues.city}, ${formValues.state} - ${formValues.pincode}`,
+      amount: router.query.buyNow ? order[0]?.price : subTotal,
+      status: 'Pending', // Order created with Paid status after successful payment
+      paymentDetails, // Include payment details
+    };
+
+    try {
+      const response = await axios.post('/api/order', orderData);
+      if (response.status === 201) {
+        console.log('Order created successfully:', response.data);
+        clearCart(); // Clear cart only after successful order creation
+        // router.push('/order-confirmation'); // Redirect to a confirmation page
+      } else {
+        console.error('Failed to create order:', response.data);
+      }
+    } catch (error) {
+      console.error('Error creating order:', error);
+    }
+  };
+
+
+  return (
+    <div className="container m-auto p-3">
+      <div className="font-bold text-3xl my-8 text-center">Checkouts</div>
+
+      <DiliveryForm
+        formValues={formValues}
+        handleInputChange={handleInputChange}
+        handleInputBlur={handleInputBlur}
+        formValid={formValid}
+      />
+
+      <OrderSummary order={order} buyNow={!!router.query.buyNow} />
+
+      <PaymentSection
+        formValid={formValid}
+        handleGooglePaySuccess={handleGooglePaySuccess}
+        order={order}
+        subTotal={subTotal}
+        buyNow={!!router.query.buyNow}
+      />
+    </div>
+  );
+};
+
+export default Checkouts;
