@@ -5,7 +5,7 @@ import Sidebar from '../components/Sidebar';
 import BestSeller from '../components/BestSeller';
 import AddProduct from '../components/AddProduct';
 
-const Dashboard = () => {
+const dashboard = () => {
     const [activeView, setActiveView] = useState('orders');
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -44,4 +44,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default dashboard;
