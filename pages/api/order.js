@@ -1,12 +1,13 @@
 import connectDb from "@/middleware/mongooseDb";
 import Order from '@/models/Order';
+import Product from '@/models/Product'; // Import the Product model to update soldQty
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     await connectDb();
     try {
       // Extract order data from the request body
-      const { userId, orderId, products, address, amount, paymentDetails, status } = req.body;
+      const { userId, orderId, products, address, amount, paymentDetails } = req.body;
 
       // Create the new order
       const newOrder = new Order({
@@ -25,6 +26,17 @@ export default async function handler(req, res) {
 
       // Save the new order in the database
       await newOrder.save();
+
+      // Update soldQty for each product in the order
+      await Promise.all(
+        products.map(async (item) => {
+          const product = await Product.findById(item.productId);
+          if (product) {
+            product.soldQty += item.quantity;
+            await product.save();
+          }
+        })
+      );
 
       // Send back a success response
       res.status(201).json(newOrder);

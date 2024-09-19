@@ -57,7 +57,7 @@ const TShirts = ({ products }) => {
 
 export async function getServerSideProps(context) {
   await connectDb();
-  const products = await Product.find({ category:  "tshirts" }).lean(); // Use .lean() to return plain JavaScript objects
+  const products = await Product.find({ category:  `${"tshirts" || "T-Shirts"}` }).lean(); // Use .lean() to return plain JavaScript objects
 
   return {
     props: {
