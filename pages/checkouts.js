@@ -37,6 +37,35 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
     validateForm();
   };
 
+  // Fetch user data and auto-fill form when the component mounts
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userId = localStorage.getItem('thread_aura__id'); // Assuming user ID is stored in localStorage
+        if (userId) {
+          const response = await axios.get(`/api/user/${userId}`);
+          if (response.status === 200) {
+            const userData = response.data;
+            setFormValues({
+              name: userData.name || '',
+              email: userData.email || '',
+              address: userData.address || '',
+              phone: userData.phone || '',
+              city: userData.city || '',
+              state: userData.state || '',
+              pincode: userData.pincode || '',
+            });
+            setFormValid(true);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   useEffect(() => {
     const { buyNow } = router.query;
 
@@ -53,7 +82,6 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
   }, [router.query, cart]);
 
   // Callback for handling Google Pay payment success
-  // Callback for handling Google Pay payment success
   const handleGooglePaySuccess = async (paymentRequest) => {
     const paymentData = paymentRequest.paymentMethodData;
     const paymentDetails = {
@@ -63,7 +91,6 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
     };
 
     console.log(paymentData);
-    
 
     // Store payment details
     setPaymentDetails(paymentDetails);
@@ -103,7 +130,6 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
       console.error('Error creating order:', error);
     }
   };
-
 
   return (
     <div className="container m-auto p-3">

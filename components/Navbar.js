@@ -55,7 +55,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
             <FaCartShopping onClick={handleToggle} size={24} className="m-3 cursor-pointer hover:text-blue-500" />
             {dropDown && <div onMouseEnter={toggleDropDown} onMouseLeave={toggleHideDropDown} className='absolute top-full mr-3  bg-white shadow-lg rounded-md p-2' >
               <ul>
-                <li className="py-1 px-2 hover:bg-gray-100 cursor-pointer">My Account</li><hr />
+                <Link href='/myaccount'><li className="py-1 px-2 hover:bg-gray-100 cursor-pointer">My Account</li></Link><hr />
                 <Link href={`/orders/${localStorage.getItem("thread_aura__id")}`}><li className="py-1 px-2 hover:bg-gray-100 cursor-pointer">Orders</li></Link><hr />
                 <li className="py-1 px-2 hover:bg-gray-100 cursor-pointer" onClick={handelLogout} >Logout</li>
               </ul>
@@ -87,7 +87,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
                       onClick={() => removeFromCart(it, 1, cart[it]?.price, cart[it]?.name, cart[it]?.size, cart[it]?.varient)}
                       className="hover:text-red-500 cursor-pointer"
                     />
-                    <span>{cart[it]?.qty}</span>
+                    <p className='truncate'>{cart[it]?.qty}</p>
                     <FaCirclePlus
                       size={17}
                       onClick={() => addToCart(it, 1, cart[it]?.price, cart[it]?.name, cart[it]?.size, cart[it]?.varient)}

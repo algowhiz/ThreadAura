@@ -23,10 +23,10 @@ const TShirts = ({ products }) => {
                     <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
                       {product.category}
                     </h3>
-                    <h2 className="text-gray-900 title-font text-lg font-medium">
-                      {product.title}
+                    <h2 className="text-gray-900 title-font text-lg font-medium truncate">
+                      {product.title }
                     </h2>
-                    <p className="mt-1">${product.price}</p>
+                    <p className="mt-1">₹{product.price}</p>
                     <p className="mt-1">Available Sizes: {product.size.join(', ')}</p>
                     <div className="mt-2">
                       <h4 className="text-gray-700 text-sm font-medium">Available Colors:</h4>
@@ -57,7 +57,7 @@ const TShirts = ({ products }) => {
 
 export async function getServerSideProps(context) {
   await connectDb();
-  const products = await Product.find({ category:  `${"tshirts" || "T-Shirts"}` }).lean(); // Use .lean() to return plain JavaScript objects
+  const products = await Product.find({ category: "T-Shirts" }).lean(); // Use .lean() to return plain JavaScript objects
 
   return {
     props: {
