@@ -1,5 +1,6 @@
 import User from "@/models/User";
 import connectDb from "@/middleware/mongooseDb";
+import Order from "@/models/Order";
 
 export default async function handelGetProducts(req, res) {
 
@@ -12,7 +13,10 @@ export default async function handelGetProducts(req, res) {
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-            res.status(200).json(user);
+            const orders = await Order.find({ userId: id }); 
+            const orderCnt = orders.length;
+
+            res.status(200).json({ user, orderCnt });
         } catch (error) {
             res.status(500).json({ error: 'Failed to fetch user details' });
         }

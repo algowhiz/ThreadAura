@@ -44,17 +44,18 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
         const userId = localStorage.getItem('thread_aura__id'); // Assuming user ID is stored in localStorage
         if (userId) {
           const response = await axios.get(`/api/user/${userId}`);
+          
           if (response.status === 200) {
-            const userData = response.data;
+            const userData = response.data.user;
             setFormValues({
-              name: userData.name || '',
-              email: userData.email || '',
-              address: userData.address || '',
-              phone: userData.phone || '',
-              city: userData.city || '',
-              state: userData.state || '',
-              pincode: userData.pincode || '',
-            });
+              name: userData?.name || '',
+              email: userData?.email || '',
+              address: userData?.address || '',
+              phone: userData?.phone || '',
+              city: userData?.city || '',
+              state: userData?.state || '',
+              pincode: userData?.pincode || '',
+            });            
             setFormValid(true);
           }
         }

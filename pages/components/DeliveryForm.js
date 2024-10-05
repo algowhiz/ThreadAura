@@ -1,4 +1,6 @@
 const DeliveryForm = ({ formValues, handleInputChange, handleInputBlur, formValid }) => {
+    console.log(formValues);
+    
     return (
         <div>
             <h2 className='text-xl font-sans font-bold'>1 . Delivery Details</h2>
