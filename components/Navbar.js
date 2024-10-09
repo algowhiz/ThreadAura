@@ -30,7 +30,7 @@ const categories = {
 const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, subTotal }) => {
   const [toggle, setToggle] = useState(false);
   const [dropDown, setDropDown] = useState(false);
-  const [activeCategory, setActiveCategory] = useState('men'); // Default is 'men'
+  const [activeCategory, setActiveCategory] = useState('men');
   const [dropdownVisible, setDropdownVisible] = useState(null);
   const router = useRouter();
 
@@ -67,20 +67,20 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
 
   const handleCategoryChange = (category) => {
     // console.log(category);
-    
+
     // setActiveCategory(category);
     // console.log(activeCategory);
   };
 
   useEffect(() => {
-    
+
     const category = router.query.category;
-  
+
     if (category) {
       setActiveCategory(category);
     }
   }, [router.query.category]);
-  
+
 
   return (
     <div>
@@ -230,18 +230,14 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
               className="m-3 cursor-pointer hover:text-blue-500"
             />
           </div>
-
-
         </div>
-        {/* Dropdown for active category */}
-        <div className="bg-white hidden md:block text-black shadow-md">
-          <div className="container mx-auto flex space-x-8 items-center justify-center py-4 px-6">
+        <div className="bg-white hidden md:block text-black shadow-md"  >
+          <div className="container mx-auto flex space-x-8 items-center justify-center py-4 px-6" onMouseLeave={handleMouseLeave}>
             {categories[activeCategory]?.map((category, index) => (
               <div
                 key={index}
                 className="relative group"
                 onMouseEnter={() => handleMouseEnter(index)}
-                onMouseLeave={handleMouseLeave}
               >
                 <button className="text-gray-800 font-semibold hover:text-blue-600 hover:underline hover:underline-offset-4 transition-all duration-200">
                   {category?.name} <span className="ml-2">▾</span>

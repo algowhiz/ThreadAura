@@ -1,6 +1,5 @@
-import Carousel from "@/models/Carousel"
+import Carousel from "@/models/Carousel";
 import connectDb from "@/middleware/mongooseDb";
-
 
 export default async function handelGetProducts(req, res) {
 
@@ -8,10 +7,16 @@ export default async function handelGetProducts(req, res) {
         await connectDb();
         
         try {
-            const { category } = req.query; 
+            const { category } = req.query;
             
-            const images = await Carousel.find({ category });
-
+            if (!category) {
+                return res.status(400).json({ success: false, message: "Category is required" });
+            }
+            
+            const images = await Carousel.find({
+                category: { $regex: `^${category}$`, $options: 'i' } 
+              });
+                        
             if (images.length > 0) {
                 return res.status(200).json({ success: true, images });
             } else {
@@ -24,5 +29,3 @@ export default async function handelGetProducts(req, res) {
         return res.status(405).json({ success: false, message: "Method not allowed" });
     }
 }
-
-

@@ -8,7 +8,6 @@ const ProductSchema = new mongoose.Schema({
     slug: {
         type: String,
         required: true,
-        unique: true
     },
     desc: {
         type: String,
@@ -23,12 +22,12 @@ const ProductSchema = new mongoose.Schema({
         required: true
     },
     size: {
-        type: [String],  // Array of strings
-        enum: ['S', 'M', 'L', 'XL', 'XXL'],  // Allowed sizes
+        type: [String],
+        enum: ['S', 'M', 'L', 'XL', 'XXL'],  
     },
     color: [{
-        color: { type: String, required: true },  // String for color name or hex code
-        availableQty: { type: Number, required: true }  // Number for available quantity
+        color: { type: String, required: true },  
+        availableQty: { type: Number, required: true }  
     }],
     price: {
         type: Number,

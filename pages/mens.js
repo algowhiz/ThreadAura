@@ -1,46 +1,65 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ImageCrousel from './components/ImageCrousel';
+import Link from 'next/link';
+import BestSelling from '@/components/BestSelling';
+import Category from './components/Category'
+import Shimmer from './components/Shimmer';
 
 const Mens = () => {
-  const [images, setImages] = useState([]); 
+  const [images, setImages] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchImages = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get("/api/carousel/category?category=men"); 
-        console.log(response);
-        setImages(response.data.images); 
+        setLoading(true);
+
+        const carouselResponse = await axios.get("/api/carousel/category?category=men");
+        setImages(carouselResponse.data.images);
+
+        const categoriesResponse = await axios.get("/api/getCategories?gender=Men");
+        setSubCategories(categoriesResponse.data[0].subcategories); 
+
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching carousel images:', error);
+        console.error('Error fetching data:', error);
+        setLoading(false);
       }
     };
 
-    fetchImages();
+    fetchData();
   }, []);
 
-  const handleDropdownToggle = (index) => {
-    if (dropdownVisible === index) {
-      setDropdownVisible(null);
-    } else {
-      setDropdownVisible(index);
-    }
-  };
+  if (loading) {
+    return (
+      <div className="min-h-screen w-full bg-gray-100">
+        <Shimmer type="carousel" />
+        <div className="p-3">
+          <Shimmer type="category" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full bg-gray-100">
-      {/* <div className='absolute z-50 top-0 ml-5'>
-        <div className="mb-4">
-          <img src="/threadLogo.png" className="w-28 h-28 rounded-full" alt="Logo" />
-        </div>
-      </div> */}
-
-      {/* Navbar */}
-      
-
       <div>
-       {/* <ImageCrousel images={images} /> */}
+        <ImageCrousel images={images} />
+      </div>
+      <div className='p-3'>
+        {subCategories.map((category, idx) => (
+          <div key={idx} className="mb-10">
+            <h1 className='text-3xl font-bold flex justify-center mb-6'>{category.name.toUpperCase()}</h1>
+
+            {(category.name === "Best-Sellers" || category.name === "shop-by-fandom" ) ? (
+              <BestSelling category={category} />
+            ) : (
+              <Category category={category} />
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );

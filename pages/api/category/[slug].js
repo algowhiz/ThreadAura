@@ -6,19 +6,35 @@ export default async function handelGetProducts(req, res) {
     await connectDb();
 
     try {
-      const { slug } = req.query;  // Extract the slug from the query parameter
+      const { slug } = req.query;
 
-      // Find products by slug (or category, depending on your schema)
-      const products = await Product.find({ category:slug }); // Assuming `slug` is a property in your Product schema
+      // Ensure slug is provided
+      if (!slug) {
+        return res.status(400).json({ success: false, message: 'Slug is required' });
+      }
+
+      // Log the slug to confirm it's being received
+      console.log('Received slug:', slug);
+
+      // Fetch products matching the category or exact slug
+      const products = await Product.find({
+        $or: [
+          { category: { $regex: `^${slug}$`, $options: 'i' } }, // Case-insensitive match for category
+          { slug: { $eq: slug } } // Exact match for slug
+        ]
+      });
+
+      // Log the results to inspect what's being returned
+      console.log('Products fetched:', products);
 
       if (!products || products.length === 0) {
         return res.status(404).json({ success: false, message: 'No products found' });
       }
 
-      // Return the array of products
       return res.status(200).json({ success: true, products });
-      
+
     } catch (error) {
+      console.error('Error fetching products:', error); // Log the error
       return res.status(500).json({ success: false, error: error.message });
     }
   } else {

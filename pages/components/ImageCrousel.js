@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 const ImageCrousel = ({images}) => {
   return (
-    <div  className="h-[70vh] cursor-pointer relative">
+    <div  className="h-[70vh]  cursor-pointer relative">
          {images.length > 0 ? (
           <Swiper
             modules={[Autoplay, Pagination]} 
@@ -26,7 +26,7 @@ const ImageCrousel = ({images}) => {
                     alt={`Carousel Image ${index}`}
                     layout="fill"
                     objectFit="cover"
-                    className="rounded-md"
+                    className="rounded-md "
                   />
                 </div>
               </SwiperSlide>
