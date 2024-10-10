@@ -9,7 +9,7 @@ import Shimmer from './components/Shimmer';
 
 const category = () => {
   const router = useRouter();
-  const { slug , category } = router.query; // Get the slug from the URL
+  const { slug, category } = router.query; // Get the slug from the URL
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,15 +18,21 @@ const category = () => {
 
   useEffect(() => {
     if (!slug) return; // Wait for slug to be available
+    console.log(slug);
 
     const fetchData = async () => {
       try {
-        const response1 = await axios.get(`/api/carousel/category?category=${slug}`);
-        console.log(response1);
-        setImages(response1.data.images);
+        try {
+          const response1 = await axios.get(`/api/carousel/category?category=${slug}`);
+          console.log(response1);
+          setImages(response1.data.images);
+        } catch (error) { }
 
-        const response2 = await axios.get(`/api/category/${slug}`); // Call your API endpoint
-        setProducts(response2.data.products);
+        try {
+          const response2 = await axios.get(`/api/category/${slug}`); // Call your API endpoint
+          setProducts(response2.data.products);
+          console.log(response2);
+        } catch (error) { }
 
       } catch (err) {
         setError(err.message);
@@ -62,10 +68,25 @@ const category = () => {
     );
   }
 
+  if (products.length === 0) {
+    return (
+      <div className="min-h-screen w-full bg-gray-100 flex justify-center items-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">This Page is Under Observation</h2>
+          <p className="text-gray-500">We are currently working on adding more products. Please visit us again soon!</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className='w-full overflow-hidden mx-auto'>
-        <ImageCrousel images={images} />
+        {images.length > 0 && (
+          <div className='w-full overflow-hidden mx-auto'>
+            <ImageCrousel images={images} />
+          </div>
+        )}
       </div>
 
       <section className="text-gray-600 body-font">

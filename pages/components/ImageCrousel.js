@@ -4,6 +4,7 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Image from 'next/image';
+import Shimmer from './Shimmer';
 
 const ImageCrousel = ({images}) => {
   return (
@@ -34,7 +35,7 @@ const ImageCrousel = ({images}) => {
           </Swiper>
         ) : (
           <div className="flex items-center justify-center h-full">
-            <p>Loading carousel images...</p>
+            <Shimmer type="carousel" />{/* <p>Loading carousel images...</p> */}
           </div>
         )}
     </div>

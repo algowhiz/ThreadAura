@@ -1,13 +1,12 @@
 import React from 'react';
 
 const Shimmer = ({ type }) => {
-  // Adjust the skeleton structure based on the type of component loading
   if (type === "carousel") {
     return (
       <div className="w-full h-[70vh] bg-gray-300 shimmer rounded-lg"></div>
     );
   }
-  
+
   if (type === "category") {
     return (
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
