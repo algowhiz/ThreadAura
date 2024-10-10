@@ -17,8 +17,7 @@ const category = () => {
   const [sortOption, setSortOption] = useState('');
 
   useEffect(() => {
-    if (!slug) return; // Wait for slug to be available
-    console.log(slug);
+    if (!slug) return; 
 
     const fetchData = async () => {
       try {

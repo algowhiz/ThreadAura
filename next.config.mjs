@@ -2,7 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['prod-img.thesouledstore.com'],
+    domains: ['prod-img.thesouledstore.com', 
+      'tss-static-images.gumlet.io'],
   },
 };
 

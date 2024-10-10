@@ -11,12 +11,12 @@ import { useRouter } from 'next/router';
 
 
 const categories = {
-  women: [
+  womens: [
     { name: "TOPWEAR", items: ["T-Shirts", "Shirts", "Hoodies", "Sweatshirts"] },
     { name: "BOTTOMWEAR", items: ["Jeans", "Joggers", "Shorts", "Trousers"] },
     { name: "ACCESSORIES", items: ["Bags", "Hats", "Watches"] }
   ],
-  men: [
+  mens: [
     { name: "TOPWEAR", items: ["T-Shirts", "Shirts", "Hoodies", "Sweatshirts"] },
     { name: "BOTTOMWEAR", items: ["Jeans", "Joggers", "Shorts", "Trousers"] },
     { name: "SNEAKERS", items: ["Running-Shoes", "Casual-Shoes", "Sports-Shoes"] }
@@ -32,6 +32,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
   const [dropDown, setDropDown] = useState(false);
   const [activeCategory, setActiveCategory] = useState('men');
   const [dropdownVisible, setDropdownVisible] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
 
   let hideDropdownTimeout = null;
@@ -66,11 +67,22 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
   };
 
   const handleCategoryChange = (category) => {
-    // console.log(category);
+    console.log(category);
 
-    // setActiveCategory(category);
-    // console.log(activeCategory);
+    setActiveCategory(category);
+    console.log(activeCategory);
   };
+
+  const handleScroll = () => {
+    setScrolled(window.scrollY > 1);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
 
@@ -88,12 +100,14 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
         <div className="container hidden md:flex mx-auto  flex-wrap flex-col md:flex-row p-3 md:p-1 items-center">
           <div className='absolute z-50 top-0 ml-5'>
             <div className="mb-4">
-              <img src="/threadLogo.png" className="w-28 h-28 rounded-full" alt="Logo" />
+              <img src="/threadLogo.png"  className={`w-28 h-28 rounded-full transition-transform duration-300 ${
+            scrolled ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
+          }`} alt="Logo" />
             </div>
           </div>
           <nav className="md:ml-auto font-bold md:mr-auto flex flex-wrap items-center text-base justify-center">
 
-            <Link href={"/womens?category=women"}>
+            <Link href={"/categories?category=womens"}>
               <p
                 className={`mr-5 hover:text-blue-500 cursor-pointer ${activeCategory === 'women' ? 'text-blue-500' : ''}`}
                 onClick={() => handleCategoryChange('women')}
@@ -101,7 +115,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
                 Women
               </p>
             </Link>
-            <Link href={"/mens?category=men"}>
+            <Link href={"/categories?category=mens"}>
               <p
                 className={`mr-5 hover:text-blue-500 cursor-pointer ${activeCategory === 'men' ? 'text-blue-500' : ''}`}
                 onClick={() => handleCategoryChange('men')}
@@ -109,7 +123,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
                 Men
               </p>
             </Link>
-            <Link href={"/kids?category=kids"}>
+            <Link href={"/categories?category=kids"}>
               <p
                 className={`mr-5 hover:text-blue-500 cursor-pointer ${activeCategory === 'kids' ? 'text-blue-500' : ''}`}
                 onClick={() => handleCategoryChange('kids')}
@@ -231,30 +245,38 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
             />
           </div>
         </div>
-        <div className="bg-white hidden md:block text-black shadow-md"  >
-          <div className="container mx-auto flex space-x-8 items-center justify-center py-4 px-6" onMouseLeave={handleMouseLeave}>
-            {categories[activeCategory]?.map((category, index) => (
-              <div
-                key={index}
-                className="relative group"
-                onMouseEnter={() => handleMouseEnter(index)}
-              >
-                <button className="text-gray-800 font-semibold hover:text-blue-600 hover:underline hover:underline-offset-4 transition-all duration-200">
-                  {category?.name} <span className="ml-2">▾</span>
-                </button>
-                {dropdownVisible === index && (
-                  <div className="absolute left-0 max-w-auto min-w-full bg-white shadow-md rounded-md mt-2 z-10">
-                    <ul className="py-2">
-                      {category?.items?.map((subcategory, subIndex) => (
-                        <li key={subIndex} className="px-4 hover:text-blue-600 hover:underline hover:underline-offset-4 transition-all duration-200 py-2 whitespace-nowrap hover:bg-gray-100">
-                          <Link href={`/category?slug=${subcategory?.toLowerCase()}`}>{subcategory}</Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            ))}
+        <div className={`bg-white ${scrolled ? 'fixed top-0' : 'relative'}  w-full   hidden md:block text-black shadow-md`}  >
+
+          <div className="  flex space-x-8 items-center justify-between" onMouseLeave={handleMouseLeave}>
+            <div className={`w-1/6 flex justify-center items-center transition-transform duration-300 ${
+          !scrolled ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
+        }`}>
+              <img src="/threadLogo.png" className="w-14  h-14 rounded-full" alt="Logo" />
+            </div>
+            <div className=' w-5/6 flex space-x-8 items-center justify-start py-4 px-6'>
+              {categories[activeCategory]?.map((category, index) => (
+                <div
+                  key={index}
+                  className="relative group"
+                  onMouseEnter={() => handleMouseEnter(index)}
+                >
+                  <button className="text-gray-800 font-semibold hover:text-blue-600 hover:underline hover:underline-offset-4 transition-all duration-200">
+                    {category?.name} <span className="ml-2">▾</span>
+                  </button>
+                  {dropdownVisible === index && (
+                    <div className="absolute left-0 max-w-auto min-w-full bg-white shadow-md rounded-md mt-2 z-10">
+                      <ul className="py-2">
+                        {category?.items?.map((subcategory, subIndex) => (
+                          <li key={subIndex} className="px-4 hover:text-blue-600 hover:underline hover:underline-offset-4 transition-all duration-200 py-2 whitespace-nowrap hover:bg-gray-100">
+                            <Link href={`/category?slug=${subcategory?.toLowerCase()}&category=mens`}>{subcategory}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div>

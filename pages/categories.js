@@ -1,36 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ImageCrousel from './components/ImageCrousel';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import BestSelling from '@/components/BestSelling';
-import Category from './components/Category'
+import Category from './components/Category';
 import Shimmer from './components/Shimmer';
 
-const Mens = () => {
+const categories = () => {
   const [images, setImages] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const { slug, category } = router.query; 
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!category) return;       
+      
       try {
         setLoading(true);
 
-        const carouselResponse = await axios.get("/api/carousel/category?category=men");
+        const carouselResponse = await axios.get(`/api/carousel/category?category=${category}`);
         setImages(carouselResponse.data.images);
 
-        const categoriesResponse = await axios.get("/api/getCategories?gender=Men");
-        setSubCategories(categoriesResponse.data[0].subcategories); 
+        
+        const categoriesResponse = await axios.get(`/api/getCategories?gender=${category}`);
+        setSubCategories(categoriesResponse.data[0]?.subcategories || []); 
 
-        setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [slug, category]);
+
+  useEffect(() => {
+    if (loading) {
+      setImages([]); 
+      setSubCategories([]); 
+    }
+  }, [loading]);
 
   if (loading) {
     return (
@@ -43,20 +55,21 @@ const Mens = () => {
     );
   }
 
+ 
   return (
     <div className="min-h-screen w-full bg-gray-100">
       <div>
         <ImageCrousel images={images} />
       </div>
       <div className='p-3'>
-        {subCategories.map((category, idx) => (
+        {subCategories.map((subCategory, idx) => (
           <div key={idx} className="mb-10">
-            <h1 className='text-3xl font-bold flex justify-center mb-6'>{category.name.toUpperCase()}</h1>
+            <h1 className='text-3xl font-bold flex justify-center mb-6'>{subCategory.name.toUpperCase()}</h1>
 
-            {(category.name === "Best-Sellers" || category.name === "shop-by-fandom" ) ? (
-              <BestSelling category={category} />
+            {(subCategory.name === "Best-Sellers" || subCategory.name === "shop-by-fandom") ? (
+              <BestSelling category={subCategory} />
             ) : (
-              <Category category={category} />
+              <Category category={subCategory} />
             )}
           </div>
         ))}
@@ -65,4 +78,4 @@ const Mens = () => {
   );
 };
 
-export default Mens;
+export default categories;
