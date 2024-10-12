@@ -4,9 +4,12 @@ const CarouselSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
-        enum: ['men', 'women', 'kids'],  // Restrict categories to these values
     },
     imageUrl: {
+        type: String,
+        required: true
+    },
+    mobileImageUrl:{
         type: String,
         required: true
     }

@@ -66,10 +66,10 @@ const categories = () => {
           <div key={idx} className="mb-10">
             <h1 className='text-3xl font-bold flex justify-center mb-6'>{subCategory.name.toUpperCase()}</h1>
 
-            {(subCategory.name === "Best-Sellers" || subCategory.name === "shop-by-fandom") ? (
-              <BestSelling category={subCategory} />
+            {(subCategory.name === "Best-Sellers" || subCategory.name === "shop-by-fandom" || subCategory.name == "SHOP BY COLOUR" || subCategory.name == "SHOP BY THEMES" ) ? (
+              <BestSelling gender={category} category={subCategory} />
             ) : (
-              <Category category={subCategory} />
+              <Category gender={category} category={subCategory} />
             )}
           </div>
         ))}

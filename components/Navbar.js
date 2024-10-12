@@ -70,7 +70,6 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
     console.log(category);
 
     setActiveCategory(category);
-    console.log(activeCategory);
   };
 
   const handleScroll = () => {
@@ -109,7 +108,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
 
             <Link href={"/categories?category=womens"}>
               <p
-                className={`mr-5 hover:text-blue-500 cursor-pointer ${activeCategory === 'women' ? 'text-blue-500' : ''}`}
+                className={`mr-5 hover:text-blue-500 cursor-pointer ${activeCategory === 'womens' ? 'text-blue-500' : ''}`}
                 onClick={() => handleCategoryChange('women')}
               >
                 Women
@@ -117,7 +116,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
             </Link>
             <Link href={"/categories?category=mens"}>
               <p
-                className={`mr-5 hover:text-blue-500 cursor-pointer ${activeCategory === 'men' ? 'text-blue-500' : ''}`}
+                className={`mr-5 hover:text-blue-500 cursor-pointer ${activeCategory === 'mens' ? 'text-blue-500' : ''}`}
                 onClick={() => handleCategoryChange('men')}
               >
                 Men
@@ -146,7 +145,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
                 <FaUserCircle
                   size={30}
                   onMouseEnter={toggleDropDown}
-                  onMouseLeave={toggleHideDropDown}
+                  // onMouseLeave={toggleHideDropDown}
                   className="cursor-pointer md:mr-4"
                 />
 
@@ -245,7 +244,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
             />
           </div>
         </div>
-        <div className={`bg-white ${scrolled ? 'fixed top-0' : 'relative'}  w-full   hidden md:block text-black shadow-md`}  >
+        <div className={`bg-white ${scrolled ? 'fixed top-0' : ''}  w-full   hidden md:block text-black shadow-md`}  >
 
           <div className="  flex space-x-8 items-center justify-between" onMouseLeave={handleMouseLeave}>
             <div className={`w-1/6 flex justify-center items-center transition-transform duration-300 ${

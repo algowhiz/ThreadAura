@@ -6,7 +6,7 @@ const SortDropdown = ({ sortOption, setSortOption ,slug,category}) => {
     <div className="mb-2 w-full sm:w-auto  flex justify-between p-3 md:p-10">
 
       <p className='text-gray-500'>
-        <Link href={`${category}`}> Home  </Link> / {slug}
+        <Link href={`/categories?category=${category}`}> Home  </Link> / {slug}
       </p>
 
       <select

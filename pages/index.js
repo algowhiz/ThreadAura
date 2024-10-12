@@ -5,7 +5,7 @@ export default function Home() {
 
   const router = useRouter();
   useEffect(()=>{
-    router.push("/mens?category=men");
+    router.push("/categories?category=mens");
   },[])
   return (
     <div>

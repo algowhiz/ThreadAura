@@ -15,42 +15,42 @@ const Footer = () => {
                     <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
                         {/* Shop Links */}
                         <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-                            <h2 className="title-font font-medium text-white tracking-widest text-sm mb-3">SHOP</h2>
+                            <h2 className="title-font font-medium text-white tracking-widest cursor-pointer text-sm mb-3">SHOP</h2>
                             <nav className="list-none mb-10">
-                                <li><a className="text-gray-400 hover:text-white">Men's Clothing</a></li>
-                                <li><a className="text-gray-400 hover:text-white">Women's Clothing</a></li>
-                                <li><a className="text-gray-400 hover:text-white">Accessories</a></li>
-                                <li><a className="text-gray-400 hover:text-white">Sale</a></li>
+                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Men's Clothing</a></li>
+                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Women's Clothing</a></li>
+                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Accessories</a></li>
+                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Sale</a></li>
                             </nav>
                         </div>
                         {/* Customer Service Links */}
                         <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-                            <h2 className="title-font font-medium text-white tracking-widest text-sm mb-3">CUSTOMER SERVICE</h2>
+                            <h2 className="title-font font-medium text-white tracking-widest cursor-pointer text-sm mb-3">CUSTOMER SERVICE</h2>
                             <nav className="list-none mb-10">
-                                <li><a className="text-gray-400 hover:text-white">Contact Us</a></li>
-                                <li><a className="text-gray-400 hover:text-white">Shipping & Returns</a></li>
-                                <li><a className="text-gray-400 hover:text-white">FAQs</a></li>
-                                <li><a className="text-gray-400 hover:text-white">Size Guide</a></li>
+                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Contact Us</a></li>
+                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Shipping & Returns</a></li>
+                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">FAQs</a></li>
+                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Size Guide</a></li>
                             </nav>
                         </div>
                         {/* About Us Links */}
                         <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-                            <h2 className="title-font font-medium text-white tracking-widest text-sm mb-3">ABOUT US</h2>
+                            <h2 className="title-font font-medium text-white tracking-widest cursor-pointer text-sm mb-3">ABOUT US</h2>
                             <nav className="list-none mb-10">
-                                <li><a className="text-gray-400 hover:text-white">Our Story</a></li>
-                                <li><a className="text-gray-400 hover:text-white">Sustainability</a></li>
-                                <li><a className="text-gray-400 hover:text-white">Careers</a></li>
-                                <li><a className="text-gray-400 hover:text-white">Blog</a></li>
+                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Our Story</a></li>
+                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Sustainability</a></li>
+                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Careers</a></li>
+                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Blog</a></li>
                             </nav>
                         </div>
                         {/* Follow Us Links */}
                         <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-                            <h2 className="title-font font-medium text-white tracking-widest text-sm mb-3">FOLLOW US</h2>
+                            <h2 className="title-font font-medium text-white tracking-widest cursor-pointer text-sm mb-3">FOLLOW US</h2>
                             <nav className="list-none mb-10">
-                                <li><a href="https://facebook.com" className="text-gray-400 hover:text-white" aria-label="Facebook">Facebook</a></li>
-                                <li><a href="https://instagram.com" className="text-gray-400 hover:text-white" aria-label="Instagram">Instagram</a></li>
-                                <li><a href="https://twitter.com" className="text-gray-400 hover:text-white" aria-label="Twitter">Twitter</a></li>
-                                <li><a href="https://pinterest.com" className="text-gray-400 hover:text-white" aria-label="Pinterest">Pinterest</a></li>
+                                <li><a href="https://facebook.com" className="text-gray-400 cursor-pointer  hover:text-white" aria-label="Facebook">Facebook</a></li>
+                                <li><a href="https://instagram.com" className="text-gray-400 cursor-pointer  hover:text-white" aria-label="Instagram">Instagram</a></li>
+                                <li><a href="https://twitter.com" className="text-gray-400 cursor-pointer  hover:text-white" aria-label="Twitter">Twitter</a></li>
+                                <li><a href="https://pinterest.com" className="text-gray-400 cursor-pointer  hover:text-white" aria-label="Pinterest">Pinterest</a></li>
                             </nav>
                         </div>
                     </div>

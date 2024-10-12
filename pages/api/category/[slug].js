@@ -24,9 +24,6 @@ export default async function handelGetProducts(req, res) {
         ]
       });
 
-      // Log the results to inspect what's being returned
-      console.log('Products fetched:', products);
-
       if (!products || products.length === 0) {
         return res.status(404).json({ success: false, message: 'No products found' });
       }

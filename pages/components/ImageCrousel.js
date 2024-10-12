@@ -21,12 +21,21 @@ const ImageCrousel = ({images}) => {
           >
             {images.map((image, index) => (
               <SwiperSlide key={index}>
-                <div className="w-full h-full flex items-center justify-center">
+                <div className="w-full hidden md:flex h-full  items-center justify-center">
                   <Image
                     src={image.imageUrl}
                     alt={`Carousel Image ${index}`}
                     layout="fill"
                     objectFit="cover"
+                    className="rounded-md "
+                  />
+                </div>
+                <div className=" md:hidden object-cover h-fit w-fit">
+                  <Image
+                    src={image.mobileImageUrl}
+                    alt={`Carousel Image ${index}`}
+                    layout="fill"
+                    objectFit="contain"
                     className="rounded-md "
                   />
                 </div>
