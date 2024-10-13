@@ -4,9 +4,10 @@ import { useEffect } from 'react';
 export default function Home() {
 
   const router = useRouter();
-  useEffect(()=>{
-    router.push("/categories?category=mens");
-  },[])
+  // useEffect(()=>{
+  //   router.push("/categories?category=mens");
+  // },[])
+  
   return (
     <div>
     </div>

@@ -30,7 +30,7 @@ const categories = {
 const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, subTotal }) => {
   const [toggle, setToggle] = useState(false);
   const [dropDown, setDropDown] = useState(false);
-  const [activeCategory, setActiveCategory] = useState('men');
+  const [activeCategory, setActiveCategory] = useState('mens');
   const [dropdownVisible, setDropdownVisible] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const router = useRouter();

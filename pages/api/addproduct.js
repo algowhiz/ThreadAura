@@ -6,21 +6,34 @@ export default async function handelAddProducts(req, res) {
 
     if (req.method === 'POST') {
         try {
-            const product = new Product({
-                title: req.body.title,
-                slug: req.body.slug,
-                desc: req.body.desc,
-                img: req.body.img,
-                category: req.body.category,
-                size: req.body.size,  // Array of sizes
-                color: req.body.color,  // Array of color objects
-                price: req.body.price,
-                availableQty: req.body.availableQty,
-                soldQty: req.body.soldQty || 0,
-            });
+            const products = req.body.products;
+            const savedProducts = [];
+            for (let productData of products) {
+                const { title, slug, desc, img, category, size, color, price, availableQty, soldQty } = productData;
 
-            await product.save();
-            return res.status(200).json({ message: "Product added successfully" });
+                // Validate the color array
+                if (!Array.isArray(color) || !color.every(c => c.color && c.availableQty !== undefined)) {
+                    return res.status(400).json({ message: "Invalid color format. Expected an array of objects with 'color' and 'availableQty'." });
+                }
+
+                const product = new Product({
+                    title,
+                    slug,
+                    desc,
+                    img,
+                    category,
+                    size,  // Array of sizes
+                    color,  // Array of color objects
+                    price,
+                    availableQty,
+                    soldQty: soldQty || 0, // Default soldQty to 0 if not provided
+                });
+
+                const savedProduct = await product.save();
+                savedProducts.push(savedProduct);
+            }
+
+            return res.status(200).json({ message: "Products added successfully", products: savedProducts });
         } catch (error) {
             console.error('Error saving product:', error);
             return res.status(500).json({ message: "Internal Server Error" });

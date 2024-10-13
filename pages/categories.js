@@ -11,7 +11,7 @@ const categories = () => {
   const [subCategories, setSubCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const { slug, category } = router.query; 
+  const { category } = router.query; 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +35,7 @@ const categories = () => {
     };
 
     fetchData();
-  }, [slug, category]);
+  }, [category]);
 
   useEffect(() => {
     if (loading) {
@@ -66,7 +66,7 @@ const categories = () => {
           <div key={idx} className="mb-10">
             <h1 className='text-3xl font-bold flex justify-center mb-6'>{subCategory.name.toUpperCase()}</h1>
 
-            {(subCategory.name === "Best-Sellers" || subCategory.name === "shop-by-fandom" || subCategory.name == "SHOP BY COLOUR" || subCategory.name == "SHOP BY THEMES" ) ? (
+            {(subCategory.name === "Best-Sellers" || subCategory.name === "shop-by-fandom" || subCategory.name === "SHOP BY COLOUR" || subCategory.name === "SHOP BY THEMES" || subCategory.name === "LATEST COLLECTIONS" || subCategory.name === "SHOP BY AGE" || subCategory.name === "OFFICIAL MERCHANDISE") ? (
               <BestSelling gender={category} category={subCategory} />
             ) : (
               <Category gender={category} category={subCategory} />

@@ -8,7 +8,7 @@ import Shimmer from './Shimmer';
 
 const ImageCrousel = ({images}) => {
   return (
-    <div  className="h-[70vh]  cursor-pointer relative">
+    <div  className=" h-[50vh] md:h-[30vh] lg:h-[70vh]  cursor-pointer relative">
          {images.length > 0 ? (
           <Swiper
             modules={[Autoplay, Pagination]} 

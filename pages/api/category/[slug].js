@@ -19,7 +19,7 @@ export default async function handelGetProducts(req, res) {
       // Fetch products matching the category or exact slug
       const products = await Product.find({
         $or: [
-          { category: { $regex: `^${slug}$`, $options: 'i' } }, // Case-insensitive match for category
+          { category: { $in: [slug] } }, // Checks if slug is in the array of categories
           { slug: { $eq: slug } } // Exact match for slug
         ]
       });

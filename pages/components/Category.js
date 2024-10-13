@@ -11,7 +11,7 @@ const Category = ({ category ,gender}) => {
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-full h-full object-cover rounded-lg mb-4"
+                className="w-full h-full  object-cover rounded-lg mb-4"
               />
             </div>
           </Link>

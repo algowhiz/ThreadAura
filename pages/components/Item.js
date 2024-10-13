@@ -12,7 +12,7 @@ const Item = ({sortedProducts,slug}) => {
                   <div className="block relative rounded overflow-hidden w-full h-[60%]">
                     <img
                       alt="ecommerce"
-                      className="m-auto h-[30vh] md:h-[36vh] block"
+                      className="m-auto h-[30vh] md:h-[50vh] block"
                       src={product.img}
                     />
                   </div>

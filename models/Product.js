@@ -18,12 +18,12 @@ const ProductSchema = new mongoose.Schema({
         required: true
     },
     category: {
-        type: String,
+        type: [String],
         required: true
     },
     size: {
         type: [String],
-        enum: ['S', 'M', 'L', 'XL', 'XXL'],  
+        enum: ['S', 'M', 'L', 'XL', 'XXL','2-3y', '3-4y', '5-6y', '7y','7-8y', '9-10y', '11-12y', '13-14y','14-15y'],  
     },
     color: [{
         color: { type: String, required: true },  
