@@ -7,7 +7,7 @@ const Item = ({sortedProducts,slug}) => {
           <h1 className="text-2xl flex justify-center font-semibold mb-10">{slug} </h1>
           <div className="flex flex-wrap justify-center items-center gap-4 p-4 md:p-0 -m-4">
             {sortedProducts.map((product) => (
-              <Link href={`/product/${product._id}`} key={product._id}>
+              <Link href={`/product/${product._id}?category=kids`} key={product._id}>
                 <div className="w-[300px] h-auto p-4 shadow-2xl rounded-sm">
                   <div className="block relative rounded overflow-hidden w-full h-[60%]">
                     <img

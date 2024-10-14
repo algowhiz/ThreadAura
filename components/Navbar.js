@@ -12,20 +12,79 @@ import { useRouter } from 'next/router';
 
 const categories = {
   womens: [
-    { name: "TOPWEAR", items: ["T-Shirts", "Shirts", "Hoodies", "Sweatshirts"] },
-    { name: "BOTTOMWEAR", items: ["Jeans", "Joggers", "Shorts", "Trousers"] },
-    { name: "ACCESSORIES", items: ["Bags", "Hats", "Watches"] }
+    {
+      name: "TOPWEAR",
+      items: [
+        { name: "T-Shirts", slug: "women-oversize-tshirt" },
+        { name: "Shirts", slug: "womens-shirts" },
+        { name: "Hoodies", slug: "hoodies-sweatsshirts" },
+        { name: "Sweatshirts", slug: "hoodies-sweatsshirts" }
+      ]
+    },
+    {
+      name: "BOTTOMWEAR",
+      items: [
+        { name: "Jeans", slug: "womens-jeans" },
+        { name: "pants", slug: "women-pants" },
+        { name: "Shorts", slug: "womens-shorts" },
+        { name: "joggers", slug: "women-joggers" }
+      ]
+    },
+    {
+      name: "ACCESSORIES",
+      items: [
+        { name: "Bags", slug: "bags" },
+      ]
+    }
   ],
   mens: [
-    { name: "TOPWEAR", items: ["T-Shirts", "Shirts", "Hoodies", "Sweatshirts"] },
-    { name: "BOTTOMWEAR", items: ["Jeans", "Joggers", "Shorts", "Trousers"] },
-    { name: "SNEAKERS", items: ["Running-Shoes", "Casual-Shoes"] }
+    {
+      name: "TOPWEAR",
+      items: [
+        { name: "T-Shirts", slug: "t-shirts" },
+        { name: "Shirts", slug: "shirts" },
+        { name: "Hoodies", slug: "hoodies" },
+        { name: "Sweatshirts", slug: "sweatshirts" }
+      ]
+    },
+    {
+      name: "BOTTOMWEAR",
+      items: [
+        { name: "Jeans", slug: "jeans" },
+        { name: "Joggers", slug: "joggers" },
+        { name: "Shorts", slug: "shorts" },
+        { name: "Trousers", slug: "trousers" }
+      ]
+    },
+    {
+      name: "SNEAKERS",
+      items: [
+        { name: "Running Shoes", slug: "running-shoes" },
+        { name: "Casual Shoes", slug: "casual-shoes" }
+      ]
+    }
   ],
   kids: [
-    { name: "CLOTHING", items: ["T-Shirts", "Pants", "Shorts", "Dresses"] },
-    { name: "ACCESSORIES", items: ["Caps", "Bags", "Toys"] }
+    {
+      name: "CLOTHING",
+      items: [
+        { name: "T-Shirts", slug: "kids-t-shirts" },
+        { name: "Pants", slug: "kids-pants" },
+        { name: "Shorts", slug: "kids-shorts" },
+        { name: "Dresses", slug: "kids-dresses" }
+      ]
+    },
+    {
+      name: "ACCESSORIES",
+      items: [
+        { name: "Caps", slug: "kids-caps" },
+        { name: "Bags", slug: "kids-bags" },
+        { name: "Toys", slug: "kids-toys" }
+      ]
+    }
   ]
 };
+
 
 const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, subTotal }) => {
   const [toggle, setToggle] = useState(false);
@@ -99,9 +158,8 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
         <div className="container hidden md:flex mx-auto  flex-wrap flex-col md:flex-row p-3 md:p-1 items-center">
           <div className='absolute z-50 top-0 '>
             <div className="mb-4 mt-2">
-              <img src="/final-logo.png"  className={`w-52 h-auto object-fill transition-transform duration-300 ${
-            scrolled ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
-          }`} alt="Logo" />
+              <img src="/final-logo.png" className={`w-52 h-auto object-fill transition-transform duration-300 ${scrolled ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
+                }`} alt="Logo" />
             </div>
           </div>
           <nav className="md:ml-auto font-bold md:mr-auto flex flex-wrap items-center text-base justify-center">
@@ -247,9 +305,8 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
         <div className={`bg-white ${scrolled ? 'fixed top-0' : ''}  w-full   hidden md:block text-black shadow-md`}  >
 
           <div className="  flex space-x-8 items-center justify-between" onMouseLeave={handleMouseLeave}>
-            <div className={`w-1/6 flex justify-center items-center ml-3 transition-transform duration-300 ${
-          !scrolled ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
-        }`}>
+            <div className={`w-1/6 flex justify-center items-center ml-3 transition-transform duration-300 ${!scrolled ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
+              }`}>
               <img src="/threadAura.png" className="w-48  h-14 rounded-full" alt="Logo" />
             </div>
             <div className=' w-5/6 flex space-x-8 items-center justify-start py-4 px-6'>
@@ -267,7 +324,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
                       <ul className="py-2">
                         {category?.items?.map((subcategory, subIndex) => (
                           <li key={subIndex} className="px-4 hover:text-blue-600 hover:underline hover:underline-offset-4 transition-all duration-200 py-2 whitespace-nowrap hover:bg-gray-100">
-                            <Link href={`/category?slug=${subcategory?.toLowerCase()}&category=mens`}>{subcategory}</Link>
+                            <Link href={`/category?slug=${subcategory.slug}&category=${activeCategory}`}>{subcategory.name}</Link>
                           </li>
                         ))}
                       </ul>

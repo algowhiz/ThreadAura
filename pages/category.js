@@ -20,7 +20,9 @@ const category = () => {
     if (!slug) return; 
 
     const fetchData = async () => {
+      setLoading(true);
       setImages([]);
+      setProducts([]);
       try {
         try {
           const response1 = await axios.get(`/api/carousel/category?category=${slug}`);
