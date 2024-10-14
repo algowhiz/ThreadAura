@@ -11,21 +11,21 @@ const categories = () => {
   const [subCategories, setSubCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const { category } = router.query; 
+  const { category, slug } = router.query;
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!category) return;       
-      
+      if (!category) return;
+      setImages([]);
       try {
         setLoading(true);
 
         const carouselResponse = await axios.get(`/api/carousel/category?category=${category}`);
         setImages(carouselResponse.data.images);
 
-        
+
         const categoriesResponse = await axios.get(`/api/getCategories?gender=${category}`);
-        setSubCategories(categoriesResponse.data[0]?.subcategories || []); 
+        setSubCategories(categoriesResponse.data[0]?.subcategories || []);
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -35,12 +35,12 @@ const categories = () => {
     };
 
     fetchData();
-  }, [category]);
+  }, [category,slug]);
 
   useEffect(() => {
     if (loading) {
-      setImages([]); 
-      setSubCategories([]); 
+      setImages([]);
+      setSubCategories([]);
     }
   }, [loading]);
 
@@ -55,7 +55,7 @@ const categories = () => {
     );
   }
 
- 
+
   return (
     <div className="min-h-screen w-full bg-gray-100">
       <div>

@@ -20,17 +20,17 @@ const category = () => {
     if (!slug) return; 
 
     const fetchData = async () => {
+      setImages([]);
       try {
         try {
           const response1 = await axios.get(`/api/carousel/category?category=${slug}`);
-          console.log(response1);
-          setImages(response1.data.images);
+          setImages(response1.data.images);          
         } catch (error) { }
 
         try {
-          const response2 = await axios.get(`/api/category/${slug}`); // Call your API endpoint
+          const response2 = await axios.get(`/api/category/${slug}`);
           setProducts(response2.data.products);
-          console.log(response2);
+          
         } catch (error) { }
 
       } catch (err) {
@@ -38,10 +38,9 @@ const category = () => {
       } finally {
         setLoading(false);
       }
-    };
-
+    };    
     fetchData();
-  }, [slug]);
+  }, [slug,router.query]);
 
   const sortedProducts = [...products].sort((a, b) => {
     if (sortOption === 'price-low-high') {

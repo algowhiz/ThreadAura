@@ -19,7 +19,7 @@ const categories = {
   mens: [
     { name: "TOPWEAR", items: ["T-Shirts", "Shirts", "Hoodies", "Sweatshirts"] },
     { name: "BOTTOMWEAR", items: ["Jeans", "Joggers", "Shorts", "Trousers"] },
-    { name: "SNEAKERS", items: ["Running-Shoes", "Casual-Shoes", "Sports-Shoes"] }
+    { name: "SNEAKERS", items: ["Running-Shoes", "Casual-Shoes"] }
   ],
   kids: [
     { name: "CLOTHING", items: ["T-Shirts", "Pants", "Shorts", "Dresses"] },

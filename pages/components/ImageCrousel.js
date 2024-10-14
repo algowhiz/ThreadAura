@@ -35,7 +35,7 @@ const ImageCrousel = ({images}) => {
                     src={image.mobileImageUrl}
                     alt={`Carousel Image ${index}`}
                     layout="fill"
-                    objectFit="contain"
+                    style={{ objectFit: 'cover' }}
                     className="rounded-md "
                   />
                 </div>

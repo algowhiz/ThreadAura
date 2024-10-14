@@ -23,7 +23,7 @@ const ProductSchema = new mongoose.Schema({
     },
     size: {
         type: [String],
-        enum: ['S', 'M', 'L', 'XL', 'XXL','2-3y', '3-4y', '5-6y', '7y','7-8y', '9-10y', '11-12y', '13-14y','14-15y'],  
+        enum: ['S', 'M', 'L', 'XL', 'XXL','2-3y', '3-4y', '5-6y', '7y','7-8y', '9-10y', '11-12y', '13-14y','14-15y','uk-7','uk-8','uk-9','uk-9'],  
     },
     color: [{
         color: { type: String, required: true },  
