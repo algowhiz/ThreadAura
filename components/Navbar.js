@@ -97,9 +97,9 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
     <div>
       <header className="bg-[#374151] text-white body-font sticky top-0 z-10">
         <div className="container hidden md:flex mx-auto  flex-wrap flex-col md:flex-row p-3 md:p-1 items-center">
-          <div className='absolute z-50 top-0 ml-5'>
-            <div className="mb-4">
-              <img src="/threadLogo.png"  className={`w-28 h-28 rounded-full transition-transform duration-300 ${
+          <div className='absolute z-50 top-0 '>
+            <div className="mb-4 mt-2">
+              <img src="/final-logo.png"  className={`w-52 h-auto object-fill transition-transform duration-300 ${
             scrolled ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
           }`} alt="Logo" />
             </div>
@@ -189,7 +189,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
           <IoMenu size={30} />
           <div className=" flex justify-center items-center z-50">
             <div className="absolute left-1/2 transform -translate-x-1/2">
-              <img src="/threadLogo.png" className="w-28 h-28 object-contain rounded-full" alt="Logo" />
+              <img src="/final2-logo.png" className="w-28 h-28 object-contain rounded-full" alt="Logo" />
             </div>
           </div>
 
@@ -247,10 +247,10 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
         <div className={`bg-white ${scrolled ? 'fixed top-0' : ''}  w-full   hidden md:block text-black shadow-md`}  >
 
           <div className="  flex space-x-8 items-center justify-between" onMouseLeave={handleMouseLeave}>
-            <div className={`w-1/6 flex justify-center items-center transition-transform duration-300 ${
+            <div className={`w-1/6 flex justify-center items-center ml-3 transition-transform duration-300 ${
           !scrolled ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
         }`}>
-              <img src="/threadLogo.png" className="w-14  h-14 rounded-full" alt="Logo" />
+              <img src="/threadAura.png" className="w-48  h-14 rounded-full" alt="Logo" />
             </div>
             <div className=' w-5/6 flex space-x-8 items-center justify-start py-4 px-6'>
               {categories[activeCategory]?.map((category, index) => (
