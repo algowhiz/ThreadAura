@@ -234,7 +234,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
               </div>
             )}
 
-            <div className={` ${user.value ? 'm-3' : 'm-6'}  `}>
+            <div className={` ${user?.value ? 'm-3' : 'm-6'}  `}>
               {user?.value !== null && <FaCartShopping
                 onClick={handleToggle}
                 size={24}
@@ -297,8 +297,8 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
               </div>
             )}
 
-            <div className={` ${user.value ? 'm-3' : 'm-4'}  `}>
-              {user?.value === null && <FaCartShopping
+            <div className={` ${user?.value ? 'm-3' : 'm-4'}  `}>
+              {user?.value !== null && <FaCartShopping
                 onClick={handleToggle}
                 size={24}
                 className=" cursor-pointer hover:text-blue-500"
