@@ -15,7 +15,13 @@ const categories = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!category) return;
+      if (!category) {
+        router.replace({
+          pathname: '/categories',
+          query: { category: 'mens' },
+        });
+        return; // Prevent the rest of the effect from running
+      }
       setImages([]);
       try {
         setLoading(true);

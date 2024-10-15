@@ -341,7 +341,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
         </div>
         <div>
           <nav className="md:ml-auto md:hidden bg-white text-black border-4 border-gray-400 font-bold md:mr-auto flex flex-wrap items-center justify-between text-base px-4 py-2">
-            <Link href={"/womens"}>
+            <Link href={"/categories?category=womens"}>
               <p
                 className={`mx-auto w-full px-4 py-2  hover:text-blue-500 cursor-pointer ${activeCategory === 'women' ? 'text-blue-500' : ''}`}
                 onClick={() => handleCategoryChange('women')}
@@ -349,7 +349,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
                 Women
               </p>
             </Link>
-            <Link href={"/mens"}>
+            <Link href={"/categories?category=mens"}>
               <p
                 className={`mx-auto  w-full px-4 py-2  hover:text-blue-500 cursor-pointer ${activeCategory === 'men' ? 'text-blue-500' : ''}`}
                 onClick={() => handleCategoryChange('men')}
@@ -357,7 +357,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
                 Men
               </p>
             </Link>
-            <Link href={"/kids"}>
+            <Link href={"/categories?category=kids"}>
               <p
                 className={`mx-auto  w-full px-4 py-2 hover:text-blue-500 cursor-pointer ${activeCategory === 'kids' ? 'text-blue-500' : ''}`}
                 onClick={() => handleCategoryChange('kids')}
