@@ -306,14 +306,14 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
             </div>
           </div>
         </div>
-        <div className={`bg-white ${scrolled ? 'fixed top-0' : ''}  w-full   hidden md:block text-black shadow-md`}  >
+        <div className={`bg-white ${scrolled ? 'fixed top-0' : ''}  w-full    hidden md:block text-black shadow-md`}  >
 
-          <div className="  flex space-x-8 items-center justify-between" onMouseLeave={handleMouseLeave}>
-            <div className={`w-1/6 flex justify-center items-center ml-3 transition-transform duration-300 ${!scrolled ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
+          <div className="  flex space-x-8  items-center justify-between" onMouseLeave={handleMouseLeave}>
+            <div className={`w-2/6 flex justify-center items-center ml-3 transition-transform duration-300 ${!scrolled ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
               }`}>
               <img src="/threadAura.png" className="w-48  h-14 rounded-full" alt="Logo" />
             </div>
-            <div className=' w-5/6 flex space-x-8 items-center justify-start py-4 px-6'>
+            <div className=' w-4/6 flex space-x-8  items-center justify-start py-4 px-7'>
               {categories[activeCategory]?.map((category, index) => (
                 <div
                   key={index}
