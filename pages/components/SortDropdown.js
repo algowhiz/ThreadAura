@@ -18,8 +18,6 @@ const SortDropdown = ({ sortOption, setSortOption ,slug,category}) => {
         <option value="a-z">A to Z</option>
         <option value="price-low-high">Price - Low to High</option>
         <option value="price-high-low">Price - High to Low</option>
-        <option value="newest">Newest</option>
-        <option value="popularity">Popularity</option>
       </select>
     </div>
   );
