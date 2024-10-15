@@ -23,10 +23,10 @@ const BestSeller = () => {
             <div className="flex space-x-4 overflow-x-auto">
                 {bestSellers.length > 0 ? (
                     bestSellers.map((product) => (
-                        <div key={product._id} className="bg-white shadow-md rounded-lg p-4 w-64">
-                            <img src={product.img} alt={product.title} className="w-full h-40 object-cover mb-2" />
-                            <h4 className="font-bold text-lg">{product.title}</h4>
-                            <p className="text-gray-600">Sold: {product.soldQty}</p>
+                        <div key={product?._id} className="bg-white shadow-md rounded-lg p-4 w-64">
+                            <img src={product?.img} alt={product?.title} className="w-full h-40 object-cover mb-2" />
+                            <h4 className="font-bold text-lg">{product?.title}</h4>
+                            <p className="text-gray-600">Sold: {product?.soldQty}</p>
                         </div>
                     ))
                 ) : (

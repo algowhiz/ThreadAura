@@ -33,10 +33,8 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
             });
 
             if (response.data.isValid) {
-                console.log("Token is valid");
                 setValidToken(true);
             } else {
-                console.log("Token is invalid or expired");
                 setValidToken(false);
                 toast.error("Error validating token! Redirecting to login...");
                 router.push('/login');
@@ -78,7 +76,7 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
           const response = await axios.get(`/api/user/${userId}`);
           
           if (response.status === 200) {
-            const userData = response.data.user;
+            const userData = response?.data?.user;
             setFormValues({
               name: userData?.name || '',
               email: userData?.email || '',
@@ -116,11 +114,11 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
 
   // Callback for handling Google Pay payment success
   const handleGooglePaySuccess = async (paymentRequest) => {
-    const paymentData = paymentRequest.paymentMethodData;
+    const paymentData = paymentRequest?.paymentMethodData;
     const paymentDetails = {
-      cardNetwork: paymentData.info.cardNetwork,
-      cardDetails: paymentData.info.cardDetails,
-      token: paymentData.tokenizationData.token,
+      cardNetwork: paymentData?.info?.cardNetwork,
+      cardDetails: paymentData?.info?.cardDetails,
+      token: paymentData?.tokenizationData?.token,
     };
 
     console.log(paymentData);
@@ -137,14 +135,14 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
       orderId,
       products: router.query.buyNow
         ? order.map((item) => ({
-          productId: item.productId,
-          quantity: item.quantity,
+          productId: item?.productId,
+          quantity: item?.quantity,
         }))
         : order.map((item) => ({
           productId: item._id,
           quantity: item.qty,
         })),
-      address: `${formValues.address}, ${formValues.city}, ${formValues.state} - ${formValues.pincode}`,
+      address: `${formValues?.address}, ${formValues?.city}, ${formValues?.state} - ${formValues?.pincode}`,
       amount: router.query.buyNow ? order[0]?.price : subTotal,
       status: 'Pending', // Order created with Paid status after successful payment
       paymentDetails, // Include payment details

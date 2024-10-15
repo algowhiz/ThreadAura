@@ -22,25 +22,25 @@ const AddProduct = () => {
 
     const handleSizeChange = (e) => {
         const value = e.target.value;
-        if (product.size.includes(value)) {
-            setProduct({ ...product, size: product.size.filter((size) => size !== value) });
+        if (product?.size.includes(value)) {
+            setProduct({ ...product, size: product?.size.filter((size) => size !== value) });
         } else {
-            setProduct({ ...product, size: [...product.size, value] });
+            setProduct({ ...product, size: [...product?.size, value] });
         }
     };
 
     const handleColorChange = (index, field, value) => {
-        const newColors = [...product.color];
+        const newColors = [...product?.color];
         newColors[index] = { ...newColors[index], [field]: value };
         setProduct({ ...product, color: newColors });
     };
 
     const addColorField = () => {
-        setProduct({ ...product, color: [...product.color, { color: '', availableQty: '' }] });
+        setProduct({ ...product, color: [...product?.color, { color: '', availableQty: '' }] });
     };
 
     const validateForm = () => {
-        if (!product.title || !product.slug || !product.desc || !product.price || !product.availableQty) {
+        if (!product?.title || !product?.slug || !product?.desc || !product?.price || !product?.availableQty) {
             setError('Please fill out all required fields.');
             return false;
         }
@@ -69,7 +69,7 @@ const AddProduct = () => {
             });
         } catch (error) {
             console.error('Error adding product:', error);
-            setError('Failed to add product. Please try again.');
+            setError('Failed to add product?. Please try again.');
         }
     };
 
@@ -82,7 +82,7 @@ const AddProduct = () => {
                     name="title"
                     type="text"
                     placeholder="Product Title"
-                    value={product.title}
+                    value={product?.title}
                     onChange={handleChange}
                     className="w-full p-2 border"
                 />
@@ -91,7 +91,7 @@ const AddProduct = () => {
                     name="slug"
                     type="text"
                     placeholder="Product Slug"
-                    value={product.slug}
+                    value={product?.slug}
                     onChange={handleChange}
                     className="w-full p-2 border"
                 />
@@ -100,7 +100,7 @@ const AddProduct = () => {
                     name="desc"
                     type="text"
                     placeholder="Description"
-                    value={product.desc}
+                    value={product?.desc}
                     onChange={handleChange}
                     className="w-full p-2 border"
                 />
@@ -109,7 +109,7 @@ const AddProduct = () => {
                     name="img"
                     type="text"
                     placeholder="Image URL"
-                    value={product.img}
+                    value={product?.img}
                     onChange={handleChange}
                     className="w-full p-2 border"
                 />
@@ -118,7 +118,7 @@ const AddProduct = () => {
                     <label className="block text-sm font-medium mb-2">Category</label>
                     <select
                         name="category"
-                        value={product.category}
+                        value={product?.category}
                         onChange={handleChange}
                         className="w-full p-2 border border-gray-300 rounded"
                     >
@@ -137,14 +137,14 @@ const AddProduct = () => {
                                 type="checkbox"
                                 value={size}
                                 onChange={handleSizeChange}
-                                checked={product.size.includes(size)}
+                                checked={product?.size.includes(size)}
                             /> {size}
                         </label>
                     ))}
                 </div>
 
                 <label>Color</label>
-                {product.color.map((color, index) => (
+                {product?.color.map((color, index) => (
                     <div key={index} className="flex space-x-4 mb-2">
                         <input
                             type="text"
@@ -174,7 +174,7 @@ const AddProduct = () => {
                     name="price"
                     type="number"
                     placeholder="Price"
-                    value={product.price}
+                    value={product?.price}
                     onChange={handleChange}
                     className="w-full p-2 border"
                 />
@@ -183,7 +183,7 @@ const AddProduct = () => {
                     name="availableQty"
                     type="number"
                     placeholder="Available Quantity"
-                    value={product.availableQty}
+                    value={product?.availableQty}
                     onChange={handleChange}
                     className="w-full p-2 border"
                 />

@@ -26,12 +26,12 @@ const category = () => {
       try {
         try {
           const response1 = await axios.get(`/api/carousel/category?category=${slug}`);
-          setImages(response1.data.images);          
+          setImages(response1?.data?.images);          
         } catch (error) { }
 
         try {
           const response2 = await axios.get(`/api/category/${slug}`);
-          setProducts(response2.data.products);
+          setProducts(response2?.data?.products);
           
         } catch (error) { }
 

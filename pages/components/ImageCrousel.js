@@ -23,7 +23,7 @@ const ImageCrousel = ({images}) => {
               <SwiperSlide key={index}>
                 <div className="w-full hidden md:flex h-full  items-center justify-center">
                   <Image
-                    src={image.imageUrl}
+                    src={image?.imageUrl}
                     alt={`Carousel Image ${index}`}
                     layout="fill"
                     objectFit="cover"
@@ -32,7 +32,7 @@ const ImageCrousel = ({images}) => {
                 </div>
                 <div className=" md:hidden object-cover h-fit w-fit">
                   <Image
-                    src={image.mobileImageUrl}
+                    src={image?.mobileImageUrl}
                     alt={`Carousel Image ${index}`}
                     layout="fill"
                     style={{ objectFit: 'cover' }}

@@ -32,16 +32,16 @@ const Signup = () => {
     e.preventDefault();
 
     // Validate password
-    if (formData.password !== formData.confirmPassword) {
+    if (formData?.password !== formData?.confirmPassword) {
       toast.error("Password does'nt match")
       return;
     }
 
     try {
       const response = await axios.post('/api/signup', {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password
+        name: formData?.name,
+        email: formData?.email,
+        password: formData?.password
       });
 
       // setSuccess('Signup successful!');
@@ -85,7 +85,7 @@ const Signup = () => {
                   type="text"
                   autoComplete="name"
                   required
-                  value={formData.name}
+                  value={formData?.name}
                   onChange={handleChange}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
                 />
@@ -101,7 +101,7 @@ const Signup = () => {
                   type="email"
                   autoComplete="email"
                   required
-                  value={formData.email}
+                  value={formData?.email}
                   onChange={handleChange}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
                 />
@@ -119,7 +119,7 @@ const Signup = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  value={formData.password}
+                  value={formData?.password}
                   onChange={handleChange}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
                 />
@@ -133,7 +133,7 @@ const Signup = () => {
                   name="confirmPassword"
                   type="password"
                   required
-                  value={formData.confirmPassword}
+                  value={formData?.confirmPassword}
                   onChange={handleChange}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
                 />

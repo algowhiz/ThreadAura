@@ -41,11 +41,11 @@ const Products = () => {
             <h2 className="text-2xl font-bold mb-6 text-gray-700">Products</h2>
 
             {productsData.map((productCategory) => (
-                <div key={productCategory.category} className="mb-8">
-                    <h3 className="text-xl font-semibold mb-4">{productCategory.category}</h3>
+                <div key={productCategory?.category} className="mb-8">
+                    <h3 className="text-xl font-semibold mb-4">{productCategory?.category}</h3>
                     <div className="overflow-x-auto">
                         <div className="flex space-x-4">
-                            {productCategory.items.map((product) => (
+                            {productCategory?.items.map((product) => (
                                 <div key={product.name} className="bg-white shadow-md rounded-lg overflow-hidden flex-shrink-0 w-[80%] sm:w-[60%] md:w-[45%] lg:w-[30%] xl:w-[22%]">
                                     <img
                                         src={product.image}

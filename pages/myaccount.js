@@ -55,7 +55,7 @@ const MyAccount = () => {
   };
 
   const handleChangePassword = async () => {
-    if (passwordDetails.newPassword !== passwordDetails.confirmPassword) {
+    if (passwordDetails?.newPassword !== passwordDetails?.confirmPassword) {
       alert('Passwords do not match!');
       return;
     }
@@ -64,8 +64,8 @@ const MyAccount = () => {
       const userId = localStorage.getItem('thread_aura__id');
       const response = await axios.post(`/api/user/change-password`, {
         userId,
-        currentPassword: passwordDetails.currentPassword,
-        newPassword: passwordDetails.newPassword
+        currentPassword: passwordDetails?.currentPassword,
+        newPassword: passwordDetails?.newPassword
       });
 
       if (response.status === 200) {
@@ -88,13 +88,13 @@ const MyAccount = () => {
           if (response.status === 200) {
             const userData = response.data;
             setFormValues({
-              name: userData.name || '',
-              email: userData.email || '',
-              address: userData.address || '',
-              phone: userData.phone || '',
-              city: userData.city || '',
-              state: userData.state || '',
-              pincode: userData.pincode || '',
+              name: userData?.name || '',
+              email: userData?.email || '',
+              address: userData?.address || '',
+              phone: userData?.phone || '',
+              city: userData?.city || '',
+              state: userData?.state || '',
+              pincode: userData?.pincode || '',
             });
           }
         }
@@ -109,7 +109,7 @@ const MyAccount = () => {
         if (userId) {
           const response = await axios.get(`/api/orders/count/${userId}`);
           if (response.status === 200) {
-            setOrderCount(response.data.orderCount);
+            setOrderCount(response?.data?.orderCount);
           }
         }
       } catch (error) {

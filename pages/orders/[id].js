@@ -53,15 +53,15 @@ const Orders = () => {
                 </thead>
                 <tbody>
                   {orders.map((order, orderIndex) => (
-                    order.products.map((product, productIndex) => (
+                    order?.products.map((product, productIndex) => (
                       <tr key={`${orderIndex}-${productIndex}`} className="border-b border-neutral-200">
                         <td className="whitespace-nowrap px-6 py-4 font-medium">{++rowIndex}</td>
-                        <td className="whitespace-nowrap px-6 py-4">{order.orderId}</td>
-                        <td className="whitespace-nowrap px-6 py-4">{order.status}</td>
-                        <td className="whitespace-nowrap px-6 py-4">{product.productId.title}</td>
-                        <td className="whitespace-nowrap px-6 py-4"><p className='ml-4'>{product.quantity}</p></td>
-                        <td className="whitespace-nowrap px-6 py-4">₹{product.productId.price}</td>
-                        <td className="whitespace-nowrap px-6 py-4">₹{product.productId.price * product.quantity}</td>
+                        <td className="whitespace-nowrap px-6 py-4">{order?.orderId}</td>
+                        <td className="whitespace-nowrap px-6 py-4">{order?.status}</td>
+                        <td className="whitespace-nowrap px-6 py-4">{product?.productId?.title}</td>
+                        <td className="whitespace-nowrap px-6 py-4"><p className='ml-4'>{product?.quantity}</p></td>
+                        <td className="whitespace-nowrap px-6 py-4">₹{product?.productId?.price}</td>
+                        <td className="whitespace-nowrap px-6 py-4">₹{product?.productId?.price * product?.quantity}</td>
                       </tr>
                     ))
                   ))}

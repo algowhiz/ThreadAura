@@ -66,15 +66,15 @@ const Slug = ({ addToCart, clearCart }) => {
   const buyNow = () => {
     if (selectedSize && product) {
       const orderDetails = {
-        slug: product.slug,
+        slug: product?.slug,
         quantity: 1,
-        price: Math.floor(product.price),
-        title: product.title,
+        price: Math.floor(product?.price),
+        title: product?.title,
         size: selectedSize,
-        color: namer(product.color[selectedColor].color).pantone[0].name,
-        img: product.img,
-        desc: product.desc,
-        productId: product._id,
+        color: namer(product?.color[selectedColor].color).pantone[0].name,
+        img: product?.img,
+        desc: product?.desc,
+        productId: product?._id,
       };
 
       // Store the order details in local storage or session storage
@@ -91,15 +91,15 @@ const Slug = ({ addToCart, clearCart }) => {
   const addToCartHandler = () => {
     if (selectedSize && product) {
       addToCart(
-        product.slug,
+        product?.slug,
         1,
-        Math.floor(product.price),
-        product.title,
+        Math.floor(product?.price),
+        product?.title,
         selectedSize,
-        namer(product.color[selectedColor].color).pantone[0].name,
-        product.img,
-        product.desc,
-        product._id,
+        namer(product?.color[selectedColor].color).pantone[0].name,
+        product?.img,
+        product?.desc,
+        product?._id,
       );
     } else {
       showToast(); // Show toast if size is not selected
@@ -124,13 +124,13 @@ const Slug = ({ addToCart, clearCart }) => {
         />
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <img
-            alt={product.title}
+            alt={product?.title}
             className="lg:w-1/2 w-full px-16 md:px-24 lg:h-auto object-cover object-center rounded shadow-md"
-            src={product.img}
+            src={product?.img}
           />
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <h2 className="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2>
-            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.title}</h1>
+            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product?.title}</h1>
             <div className="flex mb-4">
               <span className="flex items-center">
                 {[...Array(5)].map((_, i) => (
@@ -141,27 +141,27 @@ const Slug = ({ addToCart, clearCart }) => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    className={`w-4 h-4 ${i < product.rating ? 'text-indigo-500' : 'text-gray-300'}`}
+                    className={`w-4 h-4 ${i < product?.rating ? 'text-indigo-500' : 'text-gray-300'}`}
                     viewBox="0 0 24 24"
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                   </svg>
                 ))}
-                <span className="text-gray-600 ml-3">{product.reviews} Reviews</span>
+                <span className="text-gray-600 ml-3">{product?.reviews} Reviews</span>
               </span>
             </div>
-            <p className="leading-relaxed">{product.desc}</p>
+            <p className="leading-relaxed">{product?.desc}</p>
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
               <div className="flex">
                 <span className="mr-3">Color</span>
-                {product.color
-                  .filter(color => color.color !== '#FFFFFF')
+                {product?.color
+                  .filter(color => color?.color !== '#FFFFFF')
                   .map((color, index) => (
                     <button
                       key={index}
                       className={`border-2 ml-1 rounded-full w-6 h-6 focus:outline-none ${selectedColor === index ? 'border-blue-500' : 'border-gray-300'}`}
-                      style={{ backgroundColor: color.color }}
-                      aria-label={`Color ${color.color}`}
+                      style={{ backgroundColor: color?.color }}
+                      aria-label={`Color ${color?.color}`}
                       onClick={() => handleColorClick(index)}
                     ></button>
                   ))}
@@ -175,7 +175,7 @@ const Slug = ({ addToCart, clearCart }) => {
                     onChange={handleSizeChange}
                   >
                     <option value="" disabled>Select Size</option>
-                    {product.size.map((size, index) => (
+                    {product?.size.map((size, index) => (
                       <option key={index} value={size}>{size}</option>
                     ))}
                   </select>
@@ -188,7 +188,7 @@ const Slug = ({ addToCart, clearCart }) => {
               </div>
             </div>
             <div className="flex">
-              <span className="title-font font-medium text-2xl text-gray-900">₹ {Math.floor(product.price)}</span>
+              <span className="title-font font-medium text-2xl text-gray-900">₹ {Math.floor(product?.price)}</span>
               <button
                 onClick={buyNow}
                 className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"

@@ -31,20 +31,20 @@ const Login = () => {
     e.preventDefault();
 
     // Validate empty fields
-    if (formData.password == "" || formData.email == "") {
+    if (formData?.password == "" || formData?.email == "") {
       toast.error("Enter all fields")
       return;
     }
 
     try {
       const response = await axios.post('/api/login', {
-        email: formData.email,
-        password: formData.password
+        email: formData?.email,
+        password: formData?.password
       });
       
       if (response.status == 200) {
-        localStorage.setItem("thread_aura_token",response.data.token)
-        localStorage.setItem("thread_aura__id",response.data._id)
+        localStorage.setItem("thread_aura_token",response?.data?.token)
+        localStorage.setItem("thread_aura__id",response?.data?._id)
         toast.success("Back again! Deals are waiting.")
         setFormData({
           email: '',
@@ -78,7 +78,7 @@ const Login = () => {
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
               <div className="mt-2">
-                <input id="email" name="email" type="email" autoComplete="email" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6  p-2" value={formData.email} onChange={handelChange} />
+                <input id="email" name="email" type="email" autoComplete="email" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6  p-2" value={formData?.email} onChange={handelChange} />
               </div>
             </div>
 
@@ -87,7 +87,7 @@ const Login = () => {
                 <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Password</label>
               </div>
               <div className="mt-2">
-                <input id="password" name="password" type="password" autoComplete="current-password" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2 " value={formData.password}
+                <input id="password" name="password" type="password" autoComplete="current-password" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2 " value={formData?.password}
                   onChange={handelChange} />
               </div>
               <Link href={'/signup'} className=" flex justify-end font-semibold text-xs mt-2 mb-0 p-0">Don't have acoount ? <span className='text-indigo-600 text-xs hover:text-indigo-500 ml-1'> SignUp</span></Link>

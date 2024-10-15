@@ -21,11 +21,11 @@ const categories = () => {
         setLoading(true);
 
         const carouselResponse = await axios.get(`/api/carousel/category?category=${category}`);
-        setImages(carouselResponse.data.images);
+        setImages(carouselResponse?.data?.images);
 
 
         const categoriesResponse = await axios.get(`/api/getCategories?gender=${category}`);
-        setSubCategories(categoriesResponse.data[0]?.subcategories || []);
+        setSubCategories(categoriesResponse?.data[0]?.subcategories || []);
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -62,11 +62,11 @@ const categories = () => {
         <ImageCrousel images={images} />
       </div>
       <div className='p-3'>
-        {subCategories.map((subCategory, idx) => (
+        {subCategories?.map((subCategory, idx) => (
           <div key={idx} className="mb-10">
-            <h1 className='text-3xl font-bold flex justify-center mb-6'>{subCategory.name.toUpperCase()}</h1>
+            <h1 className='text-3xl font-bold flex justify-center mb-6'>{subCategory?.name.toUpperCase()}</h1>
 
-            {(subCategory.name === "Best-Sellers" || subCategory.name === "shop-by-fandom" || subCategory.name === "SHOP BY COLOUR" || subCategory.name === "SHOP BY THEMES" || subCategory.name === "LATEST COLLECTIONS" || subCategory.name === "SHOP BY AGE" || subCategory.name === "OFFICIAL MERCHANDISE") ? (
+            {(subCategory?.name === "Best-Sellers" || subCategory?.name === "shop-by-fandom" || subCategory?.name === "SHOP BY COLOUR" || subCategory?.name === "SHOP BY THEMES" || subCategory?.name === "LATEST COLLECTIONS" || subCategory?.name === "SHOP BY AGE" || subCategory?.name === "OFFICIAL MERCHANDISE") ? (
               <BestSelling gender={category} category={subCategory} />
             ) : (
               <Category gender={category} category={subCategory} />
