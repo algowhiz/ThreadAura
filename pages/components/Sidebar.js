@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Sidebar = ({ setActiveView, isOpen, toggleSidebar }) => {
+const Sidebar = ({ setActiveView, isOpen, toggleSidebar,handelLogout }) => {
     return (
         <div className={`fixed md:static inset-y-0 left-0 bg-gray-800 text-white p-4 transition-transform transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 w-64 z-20`}>
             <h2 className="text-xl md:text-2xl font-bold mb-6">Admin Panel</h2>
@@ -32,6 +32,11 @@ const Sidebar = ({ setActiveView, isOpen, toggleSidebar }) => {
                 <li className="mb-4">
                     <button onClick={() => {setActiveView('addProduct'); toggleSidebar();}} className="hover:text-blue-400 focus:outline-none">
                         Add Product
+                    </button>
+                </li>
+                <li className="mb-4">
+                    <button onClick={() => {setActiveView('logout'); handelLogout();}} className="hover:text-blue-400 focus:outline-none">
+                        Logout
                     </button>
                 </li>
             </ul>

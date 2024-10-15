@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import DiliveryForm from './components/DeliveryForm';
 import OrderSummary from './components/OrderSummary';
 import PaymentSection from './components/PaymentSection';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Checkouts = ({ cart, subTotal, clearCart }) => {
   const router = useRouter();
@@ -19,6 +21,36 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
   });
   const [formValid, setFormValid] = useState(false);
   const [paymentDetails, setPaymentDetails] = useState(null);
+  const [validToken, setValidToken] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("thread_aura_token");
+
+    const checkToken = async () => {
+        try {
+            const response = await axios.post("/api/checkValidToken", {
+                token: token,
+            });
+
+            if (response.data.isValid) {
+                console.log("Token is valid");
+                setValidToken(true);
+            } else {
+                console.log("Token is invalid or expired");
+                setValidToken(false);
+                toast.error("Error validating token! Redirecting to login...");
+                router.push('/login');
+            }
+        } catch (error) {
+            console.error("Error validating token", error);
+            setValidToken(false);
+            toast.error("Error validating token! Redirecting to login...");
+            router.push('/login');  
+        }
+    };
+
+    checkToken();
+}, [router]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -135,7 +167,15 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
   return (
     <div className="container m-auto p-3">
       <div className="font-bold text-3xl my-8 text-center">Checkouts</div>
-
+      <ToastContainer
+                position='top-right'
+                autoClose={5000}
+                hideProgressBar={false}
+                closeOnClick
+                rtl={false}
+                draggable
+                newestOnTop={false}
+            />
       <DiliveryForm
         formValues={formValues}
         handleInputChange={handleInputChange}

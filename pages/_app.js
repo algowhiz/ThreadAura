@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 const namer = require('color-namer');
 import LoadingBar from 'react-top-loading-bar';
 import Script from "next/script";
+import AdminDashboard from "@/components/AdminDashboard";
+
 
 export default function App({ Component, pageProps }) {
 
@@ -15,6 +17,8 @@ export default function App({ Component, pageProps }) {
   const [user, setUser] = useState({ value: null });
   const [key, setKey] = useState(0);
   const [progress, setProgress] = useState(0);
+  const hideNavbarRoutes = ['/admin/dashboard'];
+
   useEffect(() => {
 
     router.events.on('routeChangeStart', () => {
@@ -97,9 +101,15 @@ export default function App({ Component, pageProps }) {
         waitingTime={400}
         onLoaderFinished={() => setProgress(0)}
       />
-      <Navbar key={key} setUser={setUser} user={user} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
+       {!hideNavbarRoutes.includes(router.pathname) && <Navbar key={key} setUser={setUser} user={user} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />}
+
+       {hideNavbarRoutes.includes(router.pathname) && <AdminDashboard setUser={setUser}  />}
+      
+
+
       <Component cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
-      <Footer />
+      {!hideNavbarRoutes.includes(router.pathname) &&  <Footer />}
+     
     </>
   );
 }

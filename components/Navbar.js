@@ -104,8 +104,8 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
     setDropDown(false);
     setUser({ value: null });
     localStorage.removeItem("thread_aura_token");
+    localStorage.removeItem("thread_aura__id");
   }
-
   const toggleDropDown = () => {
     clearTimeout(hideDropdownTimeout);
     setDropDown(true);
@@ -155,14 +155,14 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
   return (
     <div>
       <header className="bg-[#374151] text-white body-font sticky top-0 z-10">
-        <div className="container hidden md:flex mx-auto  flex-wrap flex-col md:flex-row p-3 md:p-1 items-center">
+        <div className="container hidden  md:flex mx-auto  flex-wrap flex-col md:flex-row p-3 md:p-1 items-center">
           <div className='absolute z-50 top-0 '>
             <div className="mb-4 mt-2">
               <img src="/final-logo.png" className={`w-52 h-auto object-fill transition-transform duration-300 ${scrolled ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
                 }`} alt="Logo" />
             </div>
           </div>
-          <nav className="md:ml-auto font-bold md:mr-auto flex flex-wrap items-center text-base justify-center">
+          <nav className="md:ml-auto  font-bold md:mr-auto flex flex-wrap items-center text-base justify-center">
 
             <Link href={"/categories?category=womens"}>
               <p
@@ -190,7 +190,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
             </Link>
           </nav>
 
-          <div className="flex justify-center items-center mt-3 relative">
+          <div className="flex justify-between items-center mt-3 relative">
             {!user?.value && (
               <Link href={'/login'}>
                 <button className="bg-blue-400 text-white md:mr-4 py-1 px-3 focus:outline-none rounded text-base md:mt-0">
@@ -234,11 +234,13 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
               </div>
             )}
 
-            <FaCartShopping
-              onClick={handleToggle}
-              size={24}
-              className="m-3 cursor-pointer hover:text-blue-500"
-            />
+            <div className={` ${user.value ? 'm-3' : 'm-6'}  `}>
+              {user?.value !== null && <FaCartShopping
+                onClick={handleToggle}
+                size={24}
+                className=" cursor-pointer hover:text-blue-500"
+              />}
+            </div>
           </div>
 
 
@@ -295,11 +297,13 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
               </div>
             )}
 
-            <FaCartShopping
-              onClick={handleToggle}
-              size={24}
-              className="m-3 cursor-pointer hover:text-blue-500"
-            />
+            <div className={` ${user.value ? 'm-3' : 'm-4'}  `}>
+              {user?.value === null && <FaCartShopping
+                onClick={handleToggle}
+                size={24}
+                className=" cursor-pointer hover:text-blue-500"
+              />}
+            </div>
           </div>
         </div>
         <div className={`bg-white ${scrolled ? 'fixed top-0' : ''}  w-full   hidden md:block text-black shadow-md`}  >

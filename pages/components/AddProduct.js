@@ -7,7 +7,7 @@ const AddProduct = () => {
         slug: '',
         desc: '',
         img: '',
-        category: 'T-Shirts',
+        category: 't-shirts',
         size: [],
         color: [],
         price: '',
