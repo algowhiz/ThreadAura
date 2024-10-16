@@ -9,7 +9,7 @@ const Orders = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   let rowIndex = 0;
-
+  
   useEffect(() => {
     if (id) {
       const fetchOrders = async () => {
@@ -27,7 +27,13 @@ const Orders = () => {
     }
   }, [id]);
 
-  if (error) return <p>Error: {error}</p>;
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <p className="text-xl">Something went wrong. Please check back after some time.</p>
+      </div>
+    );
+  }
 
   return (
     <div className='p-6 md:p-10'>
@@ -52,7 +58,6 @@ const Orders = () => {
                 </thead>
                 <tbody>
                   {loading ? (
-                    // Render shimmer rows when loading
                     [...Array(3)].map((_, index) => (
                       <tr key={index} className="animate-pulse border-b border-neutral-200">
                         <td className="whitespace-nowrap px-6 py-4">

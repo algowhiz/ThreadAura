@@ -300,35 +300,36 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
           </div>
 
           <div className="flex justify-center items-center mt-3 relative">
-            {!user?.value && (
-              <Link href={'/login'}>
-                <button className="bg-blue-400 text-white md:mr-4 py-1 px-3 focus:outline-none rounded text-base md:mt-0">
-                  Login
-                </button>
-              </Link>
-            )}
-            {user?.value && (
-              <div className="relative">
-                <FaUserCircle
-                  size={30}
-                  onMouseEnter={toggleDropDown}
-                  onMouseLeave={toggleHideDropDown}
-                  className="cursor-pointer md:mr-4"
-                />
+            {!user?.value ?
+              <div className='m-4 flex justify-end '>
+                <Link href={'/login'}>
+                  <button className="bg-blue-400 text-white md:mr-4 py-1 px-3 focus:outline-none rounded text-base md:mt-0">
+                    Login
+                  </button>
+                </Link>
+              </div> :
+              <div>
+                <div className="relative">
+                  <FaUserCircle
+                    size={30}
+                    onMouseEnter={toggleDropDown}
+                    onMouseLeave={toggleHideDropDown}
+                    className="cursor-pointer  md:mr-4"
+                  />
+                  {dropDown && (
+                    mobileDropDowncomponent()
+                  )}
+                </div>
 
-                {dropDown && (
-                  mobileDropDowncomponent()
-                )}
+                <div className={`m-3`}>
+                  <FaCartShopping
+                    onClick={handleToggle}
+                    size={24}
+                    className=" cursor-pointer hover:text-blue-500"
+                  />
+                </div>
               </div>
-            )}
-
-            <div className={` ${user?.value ? 'm-3' : 'm-4'}  `}>
-              {user?.value !== null && <FaCartShopping
-                onClick={handleToggle}
-                size={24}
-                className=" cursor-pointer hover:text-blue-500"
-              />}
-            </div>
+            }
           </div>
         </div>
         <div className={`bg-white ${scrolled ? 'fixed top-0' : ''}  w-full    hidden md:block text-black shadow-md`}  >
@@ -439,7 +440,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
           <div className="w-full mt-4 flex flex-col">
             {categories[activeCategory]?.map((category, index) => (
               <div key={index} className="flex flex-col space-y-2">
-                <p className="text-lg font-semibold bg-gray-300 p-2 mb-2 flex justify-between text-gray-800" onClick={() => handelCategoryAccordion(category?.name)} > <p> {category?.name}</p> <p> {accordion == category.name ? <IoIosArrowUp /> : <IoIosArrowDown />}</p> </p>
+                <div className="text-lg font-semibold bg-gray-300 p-2 mb-2 flex justify-between text-gray-800" onClick={() => handelCategoryAccordion(category?.name)} > <p> {category?.name}</p>  {accordion == category.name ? <p><IoIosArrowUp /> </p> : <IoIosArrowDown />}</div>
                 {accordion === category?.name && <ul className="pl-4">
                   {category?.items?.map((subcategory, subIndex) => (
                     <li key={subIndex} className="py-1 text-gray-700  hover:text-blue-600">
