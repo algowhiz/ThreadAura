@@ -308,7 +308,7 @@ const Navbar = ({ user, setUser, cart, addToCart, removeFromCart, clearCart, sub
                   </button>
                 </Link>
               </div> :
-              <div>
+              <div className='flex gap-3 justify-center items-center' >
                 <div className="relative">
                   <FaUserCircle
                     size={30}
