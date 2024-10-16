@@ -15,8 +15,7 @@ export default async function handelSignUp(req, res) {
       if (existingUser) {
         return res.status(400).json({ message: "Email already taken" });
       }
-
-      // Create a new user
+      
       const createUser = new User({
         name,
         email,

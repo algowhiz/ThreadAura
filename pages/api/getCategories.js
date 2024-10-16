@@ -2,13 +2,12 @@ import Category from "@/models/Category";
 import connectDb from "@/middleware/mongooseDb";
 
 export default async function handler(req, res) {
-  await connectDb(); // Connect to the database
+  await connectDb(); 
 
   if (req.method === 'GET') {
     try {
-      const { gender } = req.query; // Extract the gender/mainCategory from the query parameters
+      const { gender } = req.query; 
 
-      // Fetch categories where mainCategory matches the gender (e.g., "Men" or "Women")
       const categories = await Category.find({ mainCategory: gender });
 
       if (categories.length === 0) {

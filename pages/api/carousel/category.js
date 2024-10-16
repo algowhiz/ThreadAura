@@ -16,7 +16,6 @@ export default async function handelGetProducts(req, res) {
             const images = await Carousel.find({
                 category: { $regex: `^${category}$`, $options: 'i' } 
               });
-            console.log(images);
                          
             if (images.length > 0) {
                 return res.status(200).json({ success: true, images });

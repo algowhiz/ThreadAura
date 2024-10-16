@@ -11,7 +11,6 @@ export default async function handelAddProducts(req, res) {
             for (let productData of products) {
                 const { title, slug, desc, img, category, size, color, price, availableQty, soldQty } = productData;
 
-                // Validate the color array
                 if (!Array.isArray(color) || !color.every(c => c.color && c.availableQty !== undefined)) {
                     return res.status(400).json({ message: "Invalid color format. Expected an array of objects with 'color' and 'availableQty'." });
                 }
@@ -22,11 +21,11 @@ export default async function handelAddProducts(req, res) {
                     desc,
                     img,
                     category,
-                    size,  // Array of sizes
-                    color,  // Array of color objects
+                    size, 
+                    color,  
                     price,
                     availableQty,
-                    soldQty: soldQty || 0, // Default soldQty to 0 if not provided
+                    soldQty: soldQty || 0, 
                 });
 
                 const savedProduct = await product.save();

@@ -8,19 +8,13 @@ export default async function handelGetProducts(req, res) {
     try {
       const { slug } = req.query;
 
-      // Ensure slug is provided
       if (!slug) {
         return res.status(400).json({ success: false, message: 'Slug is required' });
       }
-
-      // Log the slug to confirm it's being received
-      console.log('Received slug:', slug);
-
-      // Fetch products matching the category or exact slug
       const products = await Product.find({
         $or: [
-          { category: { $in: [slug] } }, // Checks if slug is in the array of categories
-          { slug: { $eq: slug } } // Exact match for slug
+          { category: { $in: [slug] } }, 
+          { slug: { $eq: slug } } 
         ]
       });
 
