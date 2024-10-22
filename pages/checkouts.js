@@ -70,8 +70,9 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
   };
 
   const validateForm = () => {
-    const allFieldsFilled = Object.values(formValues).every((value) => value.trim() !== '');
+    const allFieldsFilled = Object.values(formValues).every((value) => value.trim() !== "");
     setFormValid(allFieldsFilled);
+    console.log(formValid);
   };
 
   const handleInputBlur = () => {
@@ -97,7 +98,7 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
               state: userData?.state || '',
               pincode: userData?.pincode || '',
             });            
-            setFormValid(true);
+            validateForm();
           }
         }
       } catch (error) {
