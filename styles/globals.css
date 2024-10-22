@@ -8,6 +8,22 @@
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
   }
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: semi-bold;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+
+li {
+    margin-bottom: 0.1rem;
+}
+
   
   @keyframes shimmer {
     0% {

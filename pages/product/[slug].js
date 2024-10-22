@@ -6,9 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const namer = require('color-namer');
 
-// Initialize toast notifications
-
-const Slug = ({ addToCart, clearCart ,user}) => {
+const Slug = ({ addToCart, clearCart, user }) => {
   const router = useRouter();
   const { slug } = router.query;
   const [product, setProduct] = useState(null);
@@ -17,6 +15,7 @@ const Slug = ({ addToCart, clearCart ,user}) => {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedColor, setSelectedColor] = useState(0);
   const [selectedSize, setSelectedSize] = useState('');
+  const [showFullDescription, setShowFullDescription] = useState(false); // State for "Read More" toggle
 
   useEffect(() => {
     if (slug) {
@@ -81,15 +80,15 @@ const Slug = ({ addToCart, clearCart ,user}) => {
 
       router.push("/checkouts?buyNow=true");
     } else {
-      showToast('Please select a size'); 
+      showToast('Please select a size');
     }
   };
 
 
   const addToCartHandler = () => {
-    if(user?.value === null)
+    if (user?.value === null)
       showToast("Please log in first, then we can continue the adventure!");
-    if (selectedSize && product ) {
+    if (selectedSize && product) {
       addToCart(
         product?.slug,
         1,
@@ -102,14 +101,14 @@ const Slug = ({ addToCart, clearCart ,user}) => {
         product?._id,
       );
     } else {
-      showToast('Please select a size'); 
+      showToast('Please select a size');
     }
   };
 
   if (!product) {
-    return  <div className="flex items-center justify-center h-screen">
-    <div className=" w-10 h-10 md:w-16 md:h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-  </div>
+    return <div className="flex items-center justify-center h-screen">
+      <div className=" w-10 h-10 md:w-16 md:h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
   }
 
   return (
@@ -125,11 +124,14 @@ const Slug = ({ addToCart, clearCart ,user}) => {
           newestOnTop={false}
         />
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
-          <img
-            alt={product?.title}
-            className="lg:w-1/2 w-full px-16 md:px-24 lg:h-auto object-cover object-center rounded shadow-md"
-            src={product?.img}
-          />
+          <div className='lg:w-1/2 flex justify-center items-center w-full px-16 md:px-24 lg:h-auto object-cover object-center'>
+            <div className=' rounded shadow-lg shadow-slate-600 h-[400px] flex justify-center items-center'>
+              <img
+                alt={product?.title}
+                src={product?.img}
+              />
+            </div>
+          </div>
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <h2 className="text-sm title-font text-gray-500 tracking-widest">ThreadAura</h2>
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product?.title}</h1>
@@ -152,7 +154,22 @@ const Slug = ({ addToCart, clearCart ,user}) => {
                 <span className="text-gray-600 ml-3">{product?.reviews} Reviews</span>
               </span>
             </div>
-            <p className="leading-relaxed">{product?.desc}</p>
+            {/* Description section */}
+            <div className={`relative ${product?.desc.length > 150 ? 'overflow-hidden transition-all duration-500 ease-linear' : ''} ${showFullDescription ? 'max-h-full' : 'max-h-40'}`}>
+              <div dangerouslySetInnerHTML={{ __html: product.desc }} />
+
+              {product?.desc.length > 150 && !showFullDescription && (
+                <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white"></div>
+              )}
+            </div>
+            {product?.desc.length > 150 && (
+              <button
+                className="text-indigo-500 font-semibold mt-3 hover:underline"
+                onClick={() => setShowFullDescription(!showFullDescription)}
+              >
+                {showFullDescription ? 'Show Less' : 'Read More'}
+              </button>
+            )}
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
               <div className="flex">
                 <span className="mr-3">Color</span>
@@ -199,31 +216,11 @@ const Slug = ({ addToCart, clearCart ,user}) => {
               </button>
               <button
                 onClick={addToCartHandler}
-                className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                className="flex ml-2 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
               >
                 Add to Cart
               </button>
             </div>
-            <div className="flex my-5">
-              <input
-                type="text"
-                placeholder="Enter your pin code"
-                value={pinCode}
-                onChange={handlePinCodeChange}
-                className="rounded border border-gray-300 h-11 md:h-auto py-0 px-1 md:py-2 md:px-4 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base"
-              />
-              <button
-                onClick={() => handleCheckPinCodeAvailability(pinCode)}
-                className="ml-4 h-11 md:h-auto py-0 px-1 md:py-2 md:px-4 text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600 whitespace-nowrap"
-              >
-                Check Availability
-              </button>
-            </div>
-            {isChecked && (
-              <div className={`mt-2 ${service ? 'text-green-500' : 'text-red-500'}`}>
-                {service ? 'Yay! Service available at this pincode' : 'Sorry 🥺 ! Service not available at this pincode'}
-              </div>
-            )}
           </div>
         </div>
       </div>
