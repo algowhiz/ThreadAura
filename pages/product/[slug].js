@@ -8,7 +8,7 @@ const namer = require('color-namer');
 
 // Initialize toast notifications
 
-const Slug = ({ addToCart, clearCart }) => {
+const Slug = ({ addToCart, clearCart ,user}) => {
   const router = useRouter();
   const { slug } = router.query;
   const [product, setProduct] = useState(null);
@@ -59,8 +59,8 @@ const Slug = ({ addToCart, clearCart }) => {
     }
   };
 
-  const showToast = () => {
-    toast.error('Please select a size');
+  const showToast = (mess) => {
+    toast.error(mess);
   };
 
   const buyNow = () => {
@@ -77,19 +77,19 @@ const Slug = ({ addToCart, clearCart }) => {
         productId: product?._id,
       };
 
-      // Store the order details in local storage or session storage
       localStorage.setItem('buyNowOrder', JSON.stringify(orderDetails));
 
-      // Redirect to the Checkouts page with a flag or identifier
       router.push("/checkouts?buyNow=true");
     } else {
-      showToast(); // Show toast if size is not selected
+      showToast('Please select a size'); 
     }
   };
 
 
   const addToCartHandler = () => {
-    if (selectedSize && product) {
+    if(user?.value === null)
+      showToast("Please log in first, then we can continue the adventure!");
+    if (selectedSize && product ) {
       addToCart(
         product?.slug,
         1,
@@ -102,12 +102,14 @@ const Slug = ({ addToCart, clearCart }) => {
         product?._id,
       );
     } else {
-      showToast(); // Show toast if size is not selected
+      showToast('Please select a size'); 
     }
   };
 
   if (!product) {
-    return <p>Loading...</p>;
+    return  <div className="flex items-center justify-center h-screen">
+    <div className=" w-10 h-10 md:w-16 md:h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+  </div>
   }
 
   return (
@@ -129,7 +131,7 @@ const Slug = ({ addToCart, clearCart }) => {
             src={product?.img}
           />
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-            <h2 className="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2>
+            <h2 className="text-sm title-font text-gray-500 tracking-widest">ThreadAura</h2>
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product?.title}</h1>
             <div className="flex mb-4">
               <span className="flex items-center">

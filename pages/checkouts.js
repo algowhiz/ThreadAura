@@ -28,27 +28,38 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
 
     const checkToken = async () => {
         try {
-            const response = await axios.post("/api/checkValidToken", {
-                token: token,
-            });
+            const response = await axios.post("/api/checkValidToken", { token });
 
             if (response.data.isValid) {
                 setValidToken(true);
             } else {
                 setValidToken(false);
                 toast.error("Error validating token! Redirecting to login...");
-                router.push('/login');
+                setTimeout(() => {
+                    router.push('/login');
+                }, 3000);
             }
         } catch (error) {
             console.error("Error validating token", error);
             setValidToken(false);
             toast.error("Error validating token! Redirecting to login...");
-            router.push('/login');  
+            setTimeout(() => {
+                router.push('/login');
+            }, 3000);
         }
     };
 
-    checkToken();
+    if (token) {
+        checkToken();
+    } else {
+        setValidToken(false);
+        toast.error("Error validating token! Redirecting to login...");
+        setTimeout(() => {
+            router.push('/login');
+        }, 3000);
+    }
 }, [router]);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

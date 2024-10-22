@@ -107,7 +107,7 @@ export default function App({ Component, pageProps }) {
       
 
 
-      <Component cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
+      <Component cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} user={user} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
       {!hideNavbarRoutes.includes(router.pathname) &&  <Footer />}
      
     </>
