@@ -12,12 +12,19 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [guestLogin, setGuestLogin] = useState(false);
 
   useEffect(()=>{
     if(localStorage.getItem('thread_aura_token')){
       router.push('/');
     }
   },[router.query])
+
+  useEffect(() => {
+    if (guestLogin) {
+      handleSubmit();  // Only submit after guest login credentials are set
+    }
+  }, [formData, guestLogin]);
 
   const handelChange = (e) => {
     const { name, value } = e.target;
@@ -26,9 +33,16 @@ const Login = () => {
       [name]: value,
     }))
   }
+  const handelGuestLogin = () =>{
+    setFormData({
+      email:"guest@gmail.com",
+      password:"123456",
+    });
+    setGuestLogin(true);
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
 
     // Validate empty fields
     if (formData?.password == "" || formData?.email == "") {
@@ -99,7 +113,7 @@ const Login = () => {
           </form>
           <p className="mt-5 text-center text-sm text-gray-500">
             Don't want to SignUp?
-            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"> Use Guest Account</a>
+            <a onClick={handelGuestLogin} className="font-semibold leading-6 cursor-pointer text-indigo-600 hover:text-indigo-500"> Use Guest Account</a>
           </p>
         </div>
       </div>

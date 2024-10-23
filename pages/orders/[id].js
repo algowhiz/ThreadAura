@@ -14,7 +14,7 @@ const Orders = () => {
     if (id) {
       const fetchOrders = async () => {
         try {
-          const response = await axios.post('/api/orders', { id });
+          const response = await axios.post('/api/orders', { id });          
           setOrders(response.data);
           setLoading(false);
         } catch (error) {
@@ -22,7 +22,6 @@ const Orders = () => {
           setLoading(false);
         }
       };
-
       fetchOrders();
     }
   }, [id]);

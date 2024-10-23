@@ -1,5 +1,6 @@
 import connectDb from "@/middleware/mongooseDb"; 
 import Order from "@/models/Order";
+import Product from "@/models/Product"; 
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -8,10 +9,11 @@ export default async function handler(req, res) {
 
       const { id } = req.body;
 
-      const order = await Order.find({userId:id})
+      const order = await Order.find({ userId: id })
         .populate({
-          path: 'products.productId',  
-          select: 'title price img'   
+          path: 'products.productId',
+          model: 'Product',  
+          select: 'title price img'
         })
         .exec(); 
 
@@ -24,7 +26,6 @@ export default async function handler(req, res) {
       res.status(500).json({ message: error.message });
     }
   } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    res.status(405).json(`Method Get Not Allowed`);
   }
 }

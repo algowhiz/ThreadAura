@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import DeliveryForm from './components/DeliveryForm'; // Reusing the form component
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MyAccount = () => {
   const [formValues, setFormValues] = useState({
@@ -40,23 +42,22 @@ const MyAccount = () => {
 
   const handleUpdate = async () => {
     try {
-      const userId = localStorage.getItem('thread_aura__id'); // Assuming user ID is stored in localStorage
-      const response = await axios.post(`/api/user/update`, { userId, ...formValues }); // Updating user data
+      const userId = localStorage.getItem('thread_aura__id');
+      const response = await axios.post(`/api/user/update`, { userId, ...formValues });
       if (response.status === 200) {
         console.log(response);
-        alert('Your information has been updated successfully!');
+        toast.success("Your information has been updated successfully!");
       } else {
-        alert('Failed to update your information.');
+        toast.error("Failed to update your information.");
       }
     } catch (error) {
-      console.error('Error updating user data:', error);
-      alert('There was an error updating your information.');
+      toast.error("There was an error updating your information.");
     }
   };
 
   const handleChangePassword = async () => {
     if (passwordDetails?.newPassword !== passwordDetails?.confirmPassword) {
-      alert('Passwords do not match!');
+      toast.error("Passwords do not match!");
       return;
     }
 
@@ -69,12 +70,12 @@ const MyAccount = () => {
       });
 
       if (response.status === 200) {
-        alert('Password changed successfully!');
+        toast.success("Password changed successfully!");
       } else {
-        alert('Failed to change the password.');
+        toast.error("Passwords do not match!");
       }
     } catch (error) {
-      alert('Error while changing the password.');
+      toast.error("Passwords do not match!");
     }
   };
 
@@ -84,9 +85,10 @@ const MyAccount = () => {
         const userId = localStorage.getItem('thread_aura__id');
         if (userId) {
           const response = await axios.get(`/api/user/${userId}`);
+
           setOrderCount(response?.data?.orderCnt ? response?.data?.orderCnt : 0);
           if (response.status === 200) {
-            const userData = response.data;
+            const userData = response.data.user;
             setFormValues({
               name: userData?.name || '',
               email: userData?.email || '',
@@ -99,7 +101,6 @@ const MyAccount = () => {
           }
         }
       } catch (error) {
-        console.error('Failed to fetch user data:', error);
       }
     };
 
@@ -113,7 +114,6 @@ const MyAccount = () => {
           }
         }
       } catch (error) {
-        console.error('Failed to fetch order count:', error);
       }
     };
 
@@ -127,7 +127,15 @@ const MyAccount = () => {
 
   return (
     <div className="container mx-auto my-10 p-6 bg-white rounded-lg  max-w-2xl">
-
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick
+        rtl={false}
+        draggable
+        newestOnTop={false}
+      />
       <div className="my-4">
         <button
           className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg w-full text-left"
