@@ -13,16 +13,6 @@ const Footer = () => {
                         <p className="mt-2 text-sm">Discover premium quality and fashionable apparel at ThreadAura.</p>
                     </div>
                     <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
-                        {/* Shop Links */}
-                        <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-                            <h2 className="title-font font-medium text-white tracking-widest cursor-pointer text-sm mb-3">SHOP</h2>
-                            <nav className="list-none mb-10">
-                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Men's Clothing</a></li>
-                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Women's Clothing</a></li>
-                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Accessories</a></li>
-                                <li><a className="text-gray-400 cursor-pointer  hover:text-white">Sale</a></li>
-                            </nav>
-                        </div>
                         {/* Customer Service Links */}
                         <div className="lg:w-1/4 md:w-1/2 w-full px-4">
                             <h2 className="title-font font-medium text-white tracking-widest cursor-pointer text-sm mb-3">CUSTOMER SERVICE</h2>
@@ -53,6 +43,13 @@ const Footer = () => {
                                 <li><a href="https://pinterest.com" className="text-gray-400 cursor-pointer  hover:text-white" aria-label="Pinterest">Pinterest</a></li>
                             </nav>
                         </div>
+                        <div className="lg:w-1/4 md:w-1/2 w-full px-4">
+                            <h2 className="title-font font-medium text-white tracking-widest cursor-pointer text-sm mb-3">JOIN OUR TEAM</h2>
+                            <nav className="list-none mb-10">
+                                <li><a href="/delivery/login" className="text-gray-400 cursor-pointer hover:text-white">Delivery Boy Login</a></li>
+                            </nav>
+                        </div>
+
                     </div>
                 </div>
                 <div className="bg-gray-800">

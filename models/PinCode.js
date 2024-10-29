@@ -6,7 +6,7 @@ const pinCodeSchema = new mongoose.Schema({
     required: true,
     unique: true,
     trim: true,
-    match: /^[1-9][0-9]{5}$/, // Ensures it's a valid 6-digit pin code
+    match: /^[1-9][0-9]{5}$/, 
   },
   deliveryBoys: [
     {
@@ -18,7 +18,6 @@ const pinCodeSchema = new mongoose.Schema({
   timestamps: true,
 });
 
-// maximum 3 delivery boys per pin code
 pinCodeSchema.pre('save', function (next) {
   if (this.deliveryBoys.length > 3) {
     const err = new Error('A pin code can have a maximum of 3 delivery boys.');

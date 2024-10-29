@@ -7,7 +7,7 @@ import PaymentSection from './components/PaymentSection';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Checkouts = ({ cart, subTotal, clearCart }) => {
+const Checkouts = ({ cart, subTotal, clearCart ,user}) => {
   const router = useRouter();
   const [order, setOrder] = useState([]);
   const [formValues, setFormValues] = useState({
@@ -58,7 +58,7 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
             router.push('/login');
         }, 3000);
     }
-}, [router]);
+}, [router,user]);
 
 
   const handleInputChange = (e) => {
@@ -72,21 +72,17 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
   const validateForm = () => {
     const allFieldsFilled = Object.values(formValues).every((value) => value.trim() !== "");
     setFormValid(allFieldsFilled);
-    console.log(formValid);
   };
 
   const handleInputBlur = () => {
     validateForm();
   };
-
-  // Fetch user data and auto-fill form when the component mounts
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userId = localStorage.getItem('thread_aura__id'); // Assuming user ID is stored in localStorage
+        const userId = localStorage.getItem('thread_aura__id'); 
         if (userId) {
           const response = await axios.get(`/api/user/${userId}`);
-          
           if (response.status === 200) {
             const userData = response?.data?.user;
             setFormValues({
@@ -97,8 +93,7 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
               city: userData?.city || '',
               state: userData?.state || '',
               pincode: userData?.pincode || '',
-            });            
-            validateForm();
+            });         
           }
         }
       } catch (error) {
@@ -108,6 +103,10 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
 
     fetchUserData();
   }, []);
+
+  useEffect(() => {
+    validateForm(); // Runs after formValues have been updated
+  }, [formValues]);
 
   useEffect(() => {
     const { buyNow } = router.query;
@@ -132,9 +131,6 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
       cardDetails: paymentData?.info?.cardDetails,
       token: paymentData?.tokenizationData?.token,
     };
-
-    console.log(paymentData);
-
     // Store payment details
     setPaymentDetails(paymentDetails);
 
@@ -145,6 +141,7 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
     const orderData = {
       userId,
       orderId,
+      pincode:formValues?.pincode.length == 6,
       products: router.query.buyNow
         ? order.map((item) => ({
           productId: item?.productId,
@@ -156,16 +153,14 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
         })),
       address: `${formValues?.address}, ${formValues?.city}, ${formValues?.state} - ${formValues?.pincode}`,
       amount: router.query.buyNow ? order[0]?.price : subTotal,
-      status: 'Pending', // Order created with Paid status after successful payment
-      paymentDetails, // Include payment details
+      status: 'Pending', 
+      paymentDetails, 
     };
 
     try {
       const response = await axios.post('/api/order', orderData);
       if (response.status === 201) {
-        console.log('Order created successfully:', response.data);
-        clearCart(); // Clear cart only after successful order creation
-        // router.push('/order-confirmation'); // Redirect to a confirmation page
+        clearCart(); 
       } else {
         console.error('Failed to create order:', response.data);
       }
@@ -191,6 +186,8 @@ const Checkouts = ({ cart, subTotal, clearCart }) => {
         handleInputChange={handleInputChange}
         handleInputBlur={handleInputBlur}
         formValid={formValid}
+        setFormValid={setFormValid}
+        validateForm={validateForm}
       />
 
       <OrderSummary order={order} buyNow={!!router.query.buyNow} />

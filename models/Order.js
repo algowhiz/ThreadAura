@@ -22,6 +22,10 @@ const OrderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  pinCode:{
+    type: String,
+    require:true,
+  },
   amount: {
     type: Number,
     required: true,
@@ -33,7 +37,7 @@ const OrderSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Pending', 'Completed', 'Cancelled'],
+    enum: ['Pending', 'Completed', 'Cancelled','Dispatch'],
     default: 'Pending',
   },
 }, { timestamps: true });

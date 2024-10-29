@@ -1,4 +1,4 @@
-import User from "@/models/User";
+import DeliveryBoy from "@/models/DeliveryBoy";
 import connectDb from "@/middleware/mongooseDb";
 const  CryptoJS = require("crypto-js");
 const jwt = require('jsonwebtoken');
@@ -11,13 +11,11 @@ export default async function handelLogin(req, res) {
 
     try {
     
-      const existingUser = await User.findOne({ email });
+      const existingUser = await DeliveryBoy.findOne({ email });
 
       if (!existingUser) {
         return res.status(400).json({ message: "User not find" });
       }
-
-      // Create a new user
       const  bytes  = CryptoJS.AES.decrypt(existingUser.password, process.env.SECRET_KEY);
       const originalText = bytes.toString(CryptoJS.enc.Utf8);
       
@@ -25,11 +23,8 @@ export default async function handelLogin(req, res) {
 
         //JWT token
         const  token = jwt.sign({ id:existingUser._id }, process.env.JSON_SECRET_KEY,{expiresIn:'2d'});
-        if(existingUser.isAdmin==true)
-          return res.status(200).json({ message: "Login successfully done" , token:token , _id:existingUser._id,isAdmin:"true"});
-        else  
+
         return res.status(200).json({ message: "Login successfully done" , token:token , _id:existingUser._id});
-        
       }
       else 
         return res.status(400).json({ message: "Invalid credentials" });

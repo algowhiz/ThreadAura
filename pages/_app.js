@@ -7,6 +7,7 @@ const namer = require('color-namer');
 import LoadingBar from 'react-top-loading-bar';
 import Script from "next/script";
 import AdminDashboard from "@/components/AdminDashboard";
+import DeliveryDashboard from "@/components/DeliveryDashboard";
 
 
 export default function App({ Component, pageProps }) {
@@ -17,7 +18,8 @@ export default function App({ Component, pageProps }) {
   const [user, setUser] = useState({ value: null });
   const [key, setKey] = useState(0);
   const [progress, setProgress] = useState(0);
-  const hideNavbarRoutes = ['/admin/dashboard'];
+  const adminRoutes = ['/admin/dashboard'];
+  const deliveryRoutes = ['/delivery/dashboard'];
 
   useEffect(() => {
 
@@ -101,14 +103,16 @@ export default function App({ Component, pageProps }) {
         waitingTime={400}
         onLoaderFinished={() => setProgress(0)}
       />
-       {!hideNavbarRoutes.includes(router.pathname) && <Navbar key={key} setUser={setUser} user={user} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />}
+       {!adminRoutes.includes(router.pathname) && !deliveryRoutes.includes(router.pathname) && (
+        <Navbar key={key} setUser={setUser} user={user} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
+      )}
 
-       {hideNavbarRoutes.includes(router.pathname) && <AdminDashboard setUser={setUser}  />}
+      {adminRoutes.includes(router.pathname) && <AdminDashboard setUser={setUser} />}
+      {deliveryRoutes.includes(router.pathname) && <DeliveryDashboard setUser={setUser} />}
+
+      {!adminRoutes.includes(router.pathname) && !deliveryRoutes.includes(router.pathname) && <Component cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} user={user} clearCart={clearCart} subTotal={subTotal} {...pageProps} />}
       
-
-
-      <Component cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} user={user} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
-      {!hideNavbarRoutes.includes(router.pathname) &&  <Footer />}
+      {!adminRoutes.includes(router.pathname) && !deliveryRoutes.includes(router.pathname) && <Footer />}
      
     </>
   );

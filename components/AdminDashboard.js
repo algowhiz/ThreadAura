@@ -7,10 +7,7 @@ import AddProduct from '@/pages/components/AddProduct';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-
-
-const AdminDashboard = ({setUser}) => {
-
+const AdminDashboard = ({ setUser }) => {
     const [activeView, setActiveView] = useState('orders');
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [validToken, setValidToken] = useState(false);
@@ -45,21 +42,15 @@ const AdminDashboard = ({setUser}) => {
 
         const checkToken = async () => {
             try {
-                const response = await axios.post("/api/checkValidToken", {
-                    token: token,
-                });
+                const response = await axios.post("/api/checkValidToken", { token });
 
-                if (response.data.isValid) {
-                    console.log("Token is valid");
+                if (response.data.isValid && response.data.isAdmin) {
                     setValidToken(true);
                 } else {
-                    console.log("Token is invalid or expired");
-                    setValidToken(false);
                     router.push('/login');
                 }
             } catch (error) {
                 console.error("Error validating token", error);
-                setValidToken(false);
                 router.push('/login');
             }
         };
@@ -67,11 +58,14 @@ const AdminDashboard = ({setUser}) => {
         checkToken();
     }, [router]);
 
+    if (!validToken) {
+        return null; // Or add a loading spinner if preferred
+    }
 
     return (
         <div className="flex h-screen overflow-hidden">
             <Sidebar handelLogout={handelLogout} setActiveView={setActiveView} isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
-            <div className="flex-grow p-4  bg-gray-100 overflow-y-auto relative">
+            <div className="flex-grow p-4 bg-gray-100 overflow-y-auto relative">
                 <button
                     onClick={toggleSidebar}
                     className="md:hidden absolute top-4 left-4 bg-gray-800 text-white p-2 rounded focus:outline-none"
@@ -83,7 +77,7 @@ const AdminDashboard = ({setUser}) => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default AdminDashboard
+export default AdminDashboard;

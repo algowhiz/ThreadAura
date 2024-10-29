@@ -30,10 +30,28 @@ const deliveryBoySchema = new mongoose.Schema({
       ref: 'Order',
     }
   ],
+  acceptedOrders: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Order',
+    }
+  ],
   isActive: {
     type: Boolean,
     default: true,
   },
+  pinCode: {
+    type: String,
+    required: true,
+    trim: true,
+    match: /^[1-9][0-9]{5}$/, // Validates a 6-digit pin code
+  }, 
+  orderCompleted: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Order',
+    }
+  ],
 }, {
   timestamps: true,
 });

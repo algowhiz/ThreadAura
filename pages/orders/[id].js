@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-const Orders = () => {
+const Orders = ({user}) => {
   const router = useRouter();
   const { id } = router.query;
   const [orders, setOrders] = useState([]);
@@ -11,7 +11,10 @@ const Orders = () => {
   let rowIndex = 0;
   
   useEffect(() => {
-    if (id) {
+    if(!user.value){
+      router.push("/login");
+    }
+    if (id && user.value) {
       const fetchOrders = async () => {
         try {
           const response = await axios.post('/api/orders', { id });          

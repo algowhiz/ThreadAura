@@ -33,6 +33,10 @@ const UserSchema = new mongoose.Schema({
     pincode: {
         type: String, 
         
+    },
+    isAdmin:{
+        type: Boolean, 
+        default:false,
     }
 }, { timestamps: true });
 
