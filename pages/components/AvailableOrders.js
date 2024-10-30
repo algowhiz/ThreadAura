@@ -7,7 +7,7 @@ const AvailableOrders = ({ assignmentOrder, deliveryBoyId, handleAcceptOrder }) 
     const [orders, setOrders] = useState([]);
     const [acceptedOrders, setAcceptedOrders] = useState(new Set());
     const [loading, setLoading] = useState(true);
-
+    const [click,setClick] = useState(false);
     useEffect(() => {
         const fetchOrderInfo = async () => {
             setLoading(true);
@@ -29,7 +29,7 @@ const AvailableOrders = ({ assignmentOrder, deliveryBoyId, handleAcceptOrder }) 
             setOrders([]);
             setLoading(false);
         }
-    }, []);
+    }, [assignmentOrder,click]);
 
     const handleAccept = async (orderId) => {
         try {
@@ -40,6 +40,7 @@ const AvailableOrders = ({ assignmentOrder, deliveryBoyId, handleAcceptOrder }) 
             handleAcceptOrder();
             toast.success(response.data.message);
             setAcceptedOrders((prevAcceptedOrders) => new Set(prevAcceptedOrders).add(orderId));
+            setClick(true);
         } catch (error) {
             console.error("Error accepting order", error);
             toast.error("Error accepting order. Please try again.");
@@ -54,6 +55,7 @@ const AvailableOrders = ({ assignmentOrder, deliveryBoyId, handleAcceptOrder }) 
             });
             toast.info("Order rejected!");
             setOrders((prevOrders) => prevOrders.filter(order => order._id !== orderId));
+            setClick(true);
         } catch (error) {
             console.error("Error rejecting order", error);
             toast.error("Error rejecting order. Please try again.");

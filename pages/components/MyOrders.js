@@ -11,16 +11,17 @@ const MyOrders = ({ fetchMyOrdersDeatils }) => {
     const [loadingVerifyOtp, setLoadingVerifyOtp] = useState({});
     const [loadingConfirm, setLoadingConfirm] = useState({});
     const [otp, setOtp] = useState({});
+    const [deliveryBoyId, setDeliveryBoyId] = useState(localStorage?.getItem('thread_aura__id')); 
 
     useEffect(() => {
-        const deliveryBoyId = localStorage.getItem('thread_aura__id');
-        if (deliveryBoyId) {
-            setDeliveryBoyId(deliveryBoyId);
+        const storedDeliveryBoyId = localStorage.getItem('thread_aura__id');
+        if (storedDeliveryBoyId) {
+            setDeliveryBoyId(storedDeliveryBoyId);
         }
     }, []);
     
-
     const fetchMyOrders = async () => {
+        const deliveryBoyId =  localStorage?.getItem('thread_aura__id');
         try {
             setLoading(true);
             const response = await axios.post('/api/deliveryBoy/fetchacceptedorders', { deliveryBoyId });
@@ -43,7 +44,7 @@ const MyOrders = ({ fetchMyOrdersDeatils }) => {
 
     useEffect(() => {
         fetchMyOrders();
-    }, [fetchMyOrdersDeatils]);
+    }, [fetchMyOrdersDeatils, deliveryBoyId]);
 
     const handleNextStep = (orderId) => {
         setOrderSteps(prevSteps => ({
@@ -145,12 +146,12 @@ const MyOrders = ({ fetchMyOrdersDeatils }) => {
                             <input
                                 type="text"
                                 placeholder="Enter OTP"
-                                className="input-field rounded-md px-3 py-2 border-2 border-gray-400"
+                                className="input-field rounded-md px-3 py-1 mt-2 border-2 border-gray-400 outline-none"
                                 onChange={(e) => handleOtpChange(order._id, e.target.value)}
                             />
                             <button
                                 onClick={() => handelVerifyOtp(order._id)}
-                                className={`bg-blue-500 text-white px-3 py-2 rounded ${loadingVerifyOtp[order._id] ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                className={`bg-blue-500 flex mt-2 justify-center items-center text-white px-3 py-1 rounded ${loadingVerifyOtp[order._id] ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 disabled={loadingVerifyOtp[order._id]}
                             >
                                 {loadingVerifyOtp[order._id] ? (

@@ -28,12 +28,14 @@ const deliveryBoySchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Order',
+      unique:true,
     }
   ],
   acceptedOrders: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Order',
+      unique:true,
     }
   ],
   isActive: {

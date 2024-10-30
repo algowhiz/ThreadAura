@@ -31,8 +31,8 @@ const Login = () => {
 
   const handleGuestLogin = () => {
     setFormData({
-      email: "guest@gmail.com",
-      password: "123456",
+      email: "manishkadam32@svpjc.in",
+      password: "123",
     });
     setGuestLogin(true);
   };

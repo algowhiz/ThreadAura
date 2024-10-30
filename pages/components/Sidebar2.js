@@ -1,8 +1,9 @@
 import React from 'react';
 
-const Sidebar = ({ setActiveView, isOpen, toggleSidebar, handelLogout }) => (
+const Sidebar = ({ setActiveView, isOpen, toggleSidebar, handelLogout ,totalEarning}) => (
     <div className={`fixed md:static inset-y-0 left-0 bg-gray-800 text-white p-4 transition-transform transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 w-64 z-20`}>
         <h2 className="text-xl md:text-2xl font-bold mb-6">Delivery Panel</h2>
+        <h2 className="text-lg mb-4 font-bold">Total Earnings: ₹{(totalEarning*30)}</h2>
         <ul>
             <li className="mb-4">
                 <button

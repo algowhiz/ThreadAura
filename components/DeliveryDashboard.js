@@ -11,7 +11,8 @@ const DeliveryDashboard = ({ setUser }) => {
     const [validToken, setValidToken] = useState(null);
     const [userInfo, setUserInfo] = useState([]);
     const [assignmentOrder, setAssignmentOrder] = useState([]);
-    const [fetchMyOrders, setFetchMyOrders] = useState(true)
+    const [fetchMyOrders, setFetchMyOrders] = useState(true);
+    const [totalEarning, setTotalEarning] = useState(0);
     const router = useRouter();
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
@@ -28,12 +29,11 @@ const DeliveryDashboard = ({ setUser }) => {
             if (typeof window !== 'undefined') {
                 const id = localStorage.getItem("thread_aura__id");
                 const response = await axios.post(`/api/deliveryBoy/getInfo`, { id });
-                console.log(response.data);
-                setUserInfo(response.data);
+                setTotalEarning(response?.data?.orderCompleted?.length);
+                setUserInfo(response?.data);
                 
-                // Assuming the response contains an array of assignment order IDs
-                if (response.data.assignedOrders) {
-                    setAssignmentOrder(response.data.assignedOrders);
+                if (response?.data?.assignedOrders) {
+                    setAssignmentOrder(response?.data?.assignedOrders);
                 }
             }
         } catch (error) {
@@ -41,18 +41,23 @@ const DeliveryDashboard = ({ setUser }) => {
         }
     };
     const handleAcceptOrder = () => {
-        setFetchMyOrders(true); // Enable fetching for MyOrders
+        setFetchMyOrders(true); 
     };
+
+
+    useEffect(() => {
+        fetchAvailableOrders(); 
+    }, []);
 
     const renderView = () => {
         const id = typeof window !== 'undefined' ? localStorage.getItem("thread_aura__id") : null;
         switch (activeView) {
             case 'availableOrders':
-                return <AvailableOrders handleAcceptOrder={handleAcceptOrder} assignmentOrder={assignmentOrder} deliveryBoyId={id} />;
+                return <AvailableOrders  handleAcceptOrder={handleAcceptOrder} assignmentOrder={assignmentOrder} deliveryBoyId={id} />;
             case 'myOrders':
                 return <MyOrders  setFetchMyOrders={setFetchMyOrders} fetchMyOrdersDeatils={fetchMyOrders}/>;
             default:
-                return <AvailableOrders assignmentOrder={assignmentOrder} deliveryBoyId={id} />;
+                return <AvailableOrders handleAcceptOrder={handleAcceptOrder} assignmentOrder={assignmentOrder} deliveryBoyId={id} />;
         }
     };
 
@@ -95,7 +100,7 @@ const DeliveryDashboard = ({ setUser }) => {
 
     return (
         <div className="flex h-screen overflow-hidden">
-            <Sidebar2 handelLogout={handelLogout} setActiveView={setActiveView} isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+            <Sidebar2 totalEarning={totalEarning} handelLogout={handelLogout} setActiveView={setActiveView} isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
             <div className="flex-grow p-4 bg-gray-100 overflow-y-auto relative">
                 <button onClick={toggleSidebar} className="md:hidden absolute top-4 left-4 bg-gray-800 text-white p-2 rounded">
                     ☰
