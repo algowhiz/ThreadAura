@@ -42,7 +42,7 @@ const Signup = () => {
   // Check pincode availability
   const checkPincodeAvailability = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/api/deliveryBoy/checkPincode', {
+      const response = await axios.post('/api/deliveryBoy/checkPincode', {
         pincode: formData.pincode
       });
       const { available, message } = response.data;
@@ -124,7 +124,7 @@ const Signup = () => {
     // Submit signup form
     try {
       setLoadingSignUp(true);
-      const response = await axios.post('http://localhost:3000/api/deliveryBoy/signup', {
+      const response = await axios.post('/api/deliveryBoy/signup', {
         name: formData.name,
         email: formData.email,
         phoneNumber: formData.phoneNumber,
