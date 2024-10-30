@@ -12,7 +12,13 @@ const MyOrders = ({ fetchMyOrdersDeatils }) => {
     const [loadingConfirm, setLoadingConfirm] = useState({});
     const [otp, setOtp] = useState({});
 
-    const deliveryBoyId = localStorage.getItem('thread_aura__id');
+    useEffect(() => {
+        const deliveryBoyId = localStorage.getItem('thread_aura__id');
+        if (deliveryBoyId) {
+            setDeliveryBoyId(deliveryBoyId);
+        }
+    }, []);
+    
 
     const fetchMyOrders = async () => {
         try {
