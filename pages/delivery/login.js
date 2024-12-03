@@ -35,6 +35,7 @@ const Login = () => {
       password: "123",
     });
     setGuestLogin(true);
+    router.push('/delivery/landingpage');
   };
 
   const handleSubmit = async (e) => {

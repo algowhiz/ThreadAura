@@ -73,7 +73,7 @@ const categories = () => {
             <h1 className='text-3xl font-bold flex justify-center mb-6'>{subCategory?.name.toUpperCase()}</h1>
 
             {(subCategory?.name === "Best-Sellers" || subCategory?.name === "shop-by-fandom" || subCategory?.name === "SHOP BY COLOUR" || subCategory?.name === "SHOP BY THEMES" || subCategory?.name === "LATEST COLLECTIONS" || subCategory?.name === "SHOP BY AGE" || subCategory?.name === "OFFICIAL MERCHANDISE") ? (
-              <BestSelling gender={category} category={subCategory} />
+                <BestSelling gender={category} category={subCategory} />
             ) : (
               <Category gender={category} category={subCategory} />
             )}
